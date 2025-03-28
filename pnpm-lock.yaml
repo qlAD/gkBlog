@@ -155,7 +155,7 @@ importers:
         version: 18.0.10
       '@types/slug':
         specifier: ^5.0.3
-        version: 5.0.3
+        version: 5.0.9
       autoprefixer:
         specifier: ^10.4.13
         version: 10.4.13(postcss@8.4.31)
@@ -301,7 +301,7 @@ importers:
     devDependencies:
       '@types/slug':
         specifier: ^5.0.3
-        version: 5.0.3
+        version: 5.0.9
       eslint-config-typescript:
         specifier: workspace:*
         version: link:../eslint-config-typescript
@@ -769,8 +769,8 @@ packages:
   '@types/semver@7.3.13':
     resolution: {integrity: sha512-21cFJr9z3g5dW8B0CVI9g2O9beqaThGQ6ZFBqHfwhzLDKUxaqTIy3vnfah/UPkfOiF2pLq+tGz+W8RyCskuslw==}
 
-  '@types/slug@5.0.3':
-    resolution: {integrity: sha512-yPX0bb1SvrpaGlHuSiz6EicgRI4VBE+LO7IANlZagQwtaoKjLLcZc8y6s13vKp41mYvMCSzjtObxvU7/0JRPaA==}
+  '@types/slug@5.0.9':
+    resolution: {integrity: sha512-6Yp8BSplP35Esa/wOG1wLNKiqXevpQTEF/RcL/NV6BBQaMmZh4YlDwCgrrFSoUE4xAGvnKd5c+lkQJmPrBAzfQ==}
 
   '@types/stats.js@0.17.3':
     resolution: {integrity: sha512-pXNfAD3KHOdif9EQXZ9deK82HVNaXP5ZIF5RP2QG6OQFNTaY2YIetfrE9t528vEreGQvEPRDDc8muaoYeK0SxQ==}
@@ -4297,7 +4297,7 @@ snapshots:
 
   '@types/semver@7.3.13': {}
 
-  '@types/slug@5.0.3': {}
+  '@types/slug@5.0.9': {}
 
   '@types/stats.js@0.17.3': {}
 
