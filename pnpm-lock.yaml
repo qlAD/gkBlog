@@ -143,7 +143,7 @@ importers:
         version: 4.14.191
       '@types/mdx':
         specifier: ^2.0.3
-        version: 2.0.3
+        version: 2.0.13
       '@types/node':
         specifier: 18.11.18
         version: 18.11.18
@@ -733,8 +733,8 @@ packages:
   '@types/mdast@4.0.4':
     resolution: {integrity: sha512-kGaNbPh1k7AFzgpud/gMdvIm5xuECykRR+JnWKQno9TAXVa6WIVCGTPvYGekIDL4uwCZQSYbUxNBSb1aUo79oA==}
 
-  '@types/mdx@2.0.3':
-    resolution: {integrity: sha512-IgHxcT3RC8LzFLhKwP3gbMPeaK7BM9eBH46OdapPA7yvuIUJ8H6zHZV53J8hGZcTSnt95jANt+rTBNUUc22ACQ==}
+  '@types/mdx@2.0.13':
+    resolution: {integrity: sha512-+OWZQfAYyio6YkJb3HLxDrvnx6SWWDbC0zVPfBRzUk0/nqoDyf6dNxQi3eArPe8rJ473nobTMQ/8Zk+LxJ+Yuw==}
 
   '@types/ms@0.7.31':
     resolution: {integrity: sha512-iiUgKzV9AuaEkZqkOLDIvlQiL6ltuZd9tGcW3gwpnX8JbuiuhFlEGmmFXEXkN50Cvq7Os88IY2v0dkDqXYWVgA==}
@@ -3924,7 +3924,7 @@ snapshots:
   '@mdx-js/mdx@2.2.1':
     dependencies:
       '@types/estree-jsx': 1.0.0
-      '@types/mdx': 2.0.3
+      '@types/mdx': 2.0.13
       estree-util-build-jsx: 2.2.2
       estree-util-is-identifier-name: 2.0.1
       estree-util-to-js: 1.1.0
@@ -3945,7 +3945,7 @@ snapshots:
 
   '@mdx-js/react@2.2.1(react@18.2.0)':
     dependencies:
-      '@types/mdx': 2.0.3
+      '@types/mdx': 2.0.13
       '@types/react': 18.0.26
       react: 18.2.0
 
@@ -4263,7 +4263,7 @@ snapshots:
     dependencies:
       '@types/unist': 2.0.6
 
-  '@types/mdx@2.0.3': {}
+  '@types/mdx@2.0.13': {}
 
   '@types/ms@0.7.31': {}
 
