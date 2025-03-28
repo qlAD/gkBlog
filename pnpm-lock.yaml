@@ -136,7 +136,7 @@ importers:
         version: 4.0.3(react@18.2.0)
       zod:
         specifier: ^3.20.2
-        version: 3.20.2
+        version: 3.22.3
     devDependencies:
       '@types/lodash':
         specifier: ^4.14.191
@@ -297,7 +297,7 @@ importers:
         version: 8.2.2
       zod:
         specifier: ^3.20.2
-        version: 3.20.2
+        version: 3.22.3
     devDependencies:
       '@types/slug':
         specifier: ^5.0.3
@@ -3788,8 +3788,8 @@ packages:
   yoga-wasm-web@0.1.2:
     resolution: {integrity: sha512-8SkgawHcA0RUbMrnhxbaQkZDBi8rMed8pQHixkFF9w32zGhAwZ9/cOHWlpYfr6RCx42Yp3siV45/jPEkJxsk6w==}
 
-  zod@3.20.2:
-    resolution: {integrity: sha512-1MzNQdAvO+54H+EaK5YpyEy0T+Ejo/7YLHS93G3RnYWh5gaotGHwGeN/ZO687qEDU2y4CdStQYXVHIgrUl5UVQ==}
+  zod@3.22.3:
+    resolution: {integrity: sha512-EjIevzuJRiRPbVH4mGc8nApb/lVLKVpmUhAaR5R5doKGfAnGJ6Gr3CViAVjP+4FWSxCsybeWQdcgCtbX+7oZug==}
 
   zustand@3.7.2:
     resolution: {integrity: sha512-PIJDIZKtokhof+9+60cpockVOq05sJzHCriyvaLBmEJixseQ1a5Kdov6fWZfWOu5SK9c+FhH1jU0tntLxRJYMA==}
@@ -4194,7 +4194,7 @@ snapshots:
       node-fetch: 3.3.2
       ora: 6.3.1
       prompts: 2.4.2
-      zod: 3.20.2
+      zod: 3.22.3
 
   '@shuding/opentype.js@1.4.0-beta.0':
     dependencies:
@@ -7873,7 +7873,7 @@ snapshots:
 
   yoga-wasm-web@0.1.2: {}
 
-  zod@3.20.2: {}
+  zod@3.22.3: {}
 
   zustand@3.7.2(react@18.2.0):
     optionalDependencies:
