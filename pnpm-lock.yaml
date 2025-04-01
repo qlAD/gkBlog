@@ -82,7 +82,7 @@ importers:
         version: 4.0.2
       jsonata:
         specifier: ^2.0.1
-        version: 2.0.4
+        version: 2.0.6
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
@@ -2284,8 +2284,8 @@ packages:
     resolution: {integrity: sha512-g1MWMLBiz8FKi1e4w0UyVL3w+iJceWAFBAaBnnGKOpNa5f8TLktkbre1+s6oICydWAm+HRUGTmI+//xv2hvXYA==}
     hasBin: true
 
-  jsonata@2.0.4:
-    resolution: {integrity: sha512-vfavX4/G/yrYxE+UrmT/oUJ3ph7KqUrb0R7b0LVRcntQwxw+Z5kA1pNUIQzX5hF04Oe1eKxyoIPsmXtc2LgJTQ==}
+  jsonata@2.0.6:
+    resolution: {integrity: sha512-WhQB5tXQ32qjkx2GYHFw2XbL90u+LLzjofAYwi+86g6SyZeXHz9F1Q0amy3dWRYczshOC3Haok9J4pOCgHtwyQ==}
     engines: {node: '>= 8'}
 
   jsonfile@6.1.0:
@@ -6013,7 +6013,7 @@ snapshots:
     dependencies:
       minimist: 1.2.7
 
-  jsonata@2.0.4: {}
+  jsonata@2.0.6: {}
 
   jsonfile@6.1.0:
     dependencies:
