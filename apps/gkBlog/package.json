@@ -49,7 +49,7 @@
     "swr": "^2.0.0",
     "tailwind-merge": "^2.5.3",
     "tailwindcss-accent": "^2.1.2",
-    "three": "^0.170.0",
+    "three": "^0.175.0",
     "use-local-storage-state": "^18.1.2",
     "use-sound": "^4.0.3",
     "zod": "^3.20.2"
