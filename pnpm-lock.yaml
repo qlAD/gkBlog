@@ -73,7 +73,7 @@ importers:
         version: 1.2.1
       dayjs:
         specifier: ^1.11.7
-        version: 1.11.7
+        version: 1.11.13
       framer-motion:
         specifier: 7.7.0
         version: 7.7.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
@@ -1294,8 +1294,8 @@ packages:
     resolution: {integrity: sha512-dDCnyH2WnnKusqvZZ6+jA1O51Ibt8ZMRNkDZdyAyK4YfbDwa/cEmuztzG5pk6hqlp9aSBPYcjOlktquahGwGeA==}
     engines: {node: '>=0.11'}
 
-  dayjs@1.11.7:
-    resolution: {integrity: sha512-+Yw9U6YO5TQohxLcIkrXBeY73WP3ejHWVvx8XCk3gxvQDCTEmS48ZrSZCKciI7Bhl/uCMyxYtE9UqRILmFphkQ==}
+  dayjs@1.11.13:
+    resolution: {integrity: sha512-oaMBel6gjolK862uaPQOVTA7q3TZhuSvuMQAAglQDOWYO9A91IrAOUJEyKVlqJlHE0vq5p5UXxzdPfMH/x6xNg==}
 
   debounce@1.2.1:
     resolution: {integrity: sha512-XRRe6Glud4rd/ZGQfiV1ruXSfbvfJedlV9Y6zOlP+2K04vBYiJEte6stfFkCP03aMnY5tsipamumUjL14fofug==}
@@ -4903,7 +4903,7 @@ snapshots:
 
   date-fns@2.29.3: {}
 
-  dayjs@1.11.7: {}
+  dayjs@1.11.13: {}
 
   debounce@1.2.1: {}
 
