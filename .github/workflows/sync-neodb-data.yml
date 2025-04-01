@@ -181,7 +181,7 @@ jobs:
         if: ${{ env.REMOTE_UUID != env.CURRENT_UUID }}
         uses: actions/setup-python@v5
         with:
-          python-version: '3.10'
+          python-version: '3.13'
 
       # 更新电影详情
       - name: Fetch Movie Details
