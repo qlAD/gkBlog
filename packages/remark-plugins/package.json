@@ -25,6 +25,6 @@
     "eslint-config-typescript": "workspace:*",
     "tsconfig": "workspace:*",
     "tsup": "^8.0.0",
-    "unified": "^10.1.2"
+    "unified": "^11.0.0"
   }
 }
