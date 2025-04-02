@@ -172,8 +172,8 @@ importers:
         specifier: ^1.4.4
         version: 1.4.4
       next-sitemap:
-        specifier: ^3.1.43
-        version: 3.1.55(@next/env@13.1.2)(next@13.1.2(react-dom@18.2.0(react@18.2.0))(react@18.2.0))
+        specifier: ^4.0.0
+        version: 4.2.3(next@13.1.2(react-dom@18.2.0(react@18.2.0))(react@18.2.0))
       postcss:
         specifier: ^8.4.20
         version: 8.5.3
@@ -468,6 +468,9 @@ packages:
 
   '@next/env@13.1.2':
     resolution: {integrity: sha512-PpT4UZIX66VMTqXt4HKEJ+/PwbS+tWmmhZlazaws1a+dbUA5pPdjntQ46Jvj616i3ZKN9doS9LHx3y50RLjAWg==}
+
+  '@next/env@13.5.11':
+    resolution: {integrity: sha512-fbb2C7HChgM7CemdCY+y3N1n8pcTKdqtQLbC7/EQtPdLvlMUT9JX/dBYl8MMZAtYG4uVMyPFHXckb68q/NRwqg==}
 
   '@next/eslint-plugin-next@13.1.2':
     resolution: {integrity: sha512-WGaNVvIYphdriesP6r7jq/8l7u38tzotnVQuxc1RYKLqYYApSsrebti3OCPoT3Gx0pw2smPIFHH98RzcsgW5GQ==}
@@ -2755,12 +2758,11 @@ packages:
   neo-async@2.6.2:
     resolution: {integrity: sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==}
 
-  next-sitemap@3.1.55:
-    resolution: {integrity: sha512-ZjkRfkqoSLbU+e8W9TWWe0zfOGNA47lpvm35kNcUCmj73gpLX2PIn51gwHT/B6bgGVAFYY0OXixJDrxIIwcEHw==}
+  next-sitemap@4.2.3:
+    resolution: {integrity: sha512-vjdCxeDuWDzldhCnyFCQipw5bfpl4HmZA7uoo3GAaYGjGgfL4Cxb1CiztPuWGmS+auYs7/8OekRS8C2cjdAsjQ==}
     engines: {node: '>=14.18'}
     hasBin: true
     peerDependencies:
-      '@next/env': '*'
       next: '*'
 
   next-themes@0.2.1:
@@ -4138,6 +4140,8 @@ snapshots:
 
   '@next/env@13.1.2': {}
 
+  '@next/env@13.5.11': {}
+
   '@next/eslint-plugin-next@13.1.2':
     dependencies:
       glob: 7.1.7
@@ -4371,11 +4375,11 @@ snapshots:
   '@types/eslint-scope@3.7.7':
     dependencies:
       '@types/eslint': 9.6.1
-      '@types/estree': 0.0.51
+      '@types/estree': 1.0.0
 
   '@types/eslint@9.6.1':
     dependencies:
-      '@types/estree': 0.0.51
+      '@types/estree': 1.0.0
       '@types/json-schema': 7.0.15
 
   '@types/estree-jsx@1.0.0':
@@ -6892,10 +6896,11 @@ snapshots:
 
   neo-async@2.6.2: {}
 
-  next-sitemap@3.1.55(@next/env@13.1.2)(next@13.1.2(react-dom@18.2.0(react@18.2.0))(react@18.2.0)):
+  next-sitemap@4.2.3(next@13.1.2(react-dom@18.2.0(react@18.2.0))(react@18.2.0)):
     dependencies:
       '@corex/deepmerge': 4.0.43
-      '@next/env': 13.1.2
+      '@next/env': 13.5.11
+      fast-glob: 3.3.3
       minimist: 1.2.8
       next: 13.1.2(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
 
