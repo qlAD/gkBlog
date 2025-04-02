@@ -4381,11 +4381,11 @@ snapshots:
   '@types/eslint-scope@3.7.7':
     dependencies:
       '@types/eslint': 9.6.1
-      '@types/estree': 1.0.0
+      '@types/estree': 0.0.51
 
   '@types/eslint@9.6.1':
     dependencies:
-      '@types/estree': 1.0.0
+      '@types/estree': 0.0.51
       '@types/json-schema': 7.0.15
 
   '@types/estree-jsx@1.0.0':
