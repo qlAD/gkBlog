@@ -1,7 +1,7 @@
 import {
   JetBrains_Mono as JetBrainsMono,
   Plus_Jakarta_Sans as PlusJakartaSans,
-} from "@next/font/google";
+} from "next/font/google";
 import clsx from "clsx";
 import { PropsWithChildren, useEffect } from "react";
 
