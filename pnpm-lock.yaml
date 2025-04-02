@@ -172,8 +172,8 @@ importers:
         specifier: ^1.4.4
         version: 1.4.4
       next-sitemap:
-        specifier: ^3.1.55
-        version: 3.1.55(@next/env@13.5.11)(next@13.5.11(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
+        specifier: ^4.0.0
+        version: 4.2.3(next@13.5.11(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
       postcss:
         specifier: ^8.5.3
         version: 8.5.3
@@ -2693,12 +2693,11 @@ packages:
   neo-async@2.6.2:
     resolution: {integrity: sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==}
 
-  next-sitemap@3.1.55:
-    resolution: {integrity: sha512-ZjkRfkqoSLbU+e8W9TWWe0zfOGNA47lpvm35kNcUCmj73gpLX2PIn51gwHT/B6bgGVAFYY0OXixJDrxIIwcEHw==}
+  next-sitemap@4.2.3:
+    resolution: {integrity: sha512-vjdCxeDuWDzldhCnyFCQipw5bfpl4HmZA7uoo3GAaYGjGgfL4Cxb1CiztPuWGmS+auYs7/8OekRS8C2cjdAsjQ==}
     engines: {node: '>=14.18'}
     hasBin: true
     peerDependencies:
-      '@next/env': '*'
       next: '*'
 
   next-themes@0.2.1:
@@ -6928,10 +6927,11 @@ snapshots:
 
   neo-async@2.6.2: {}
 
-  next-sitemap@3.1.55(@next/env@13.5.11)(next@13.5.11(react-dom@18.3.1(react@18.3.1))(react@18.3.1)):
+  next-sitemap@4.2.3(next@13.5.11(react-dom@18.3.1(react@18.3.1))(react@18.3.1)):
     dependencies:
       '@corex/deepmerge': 4.0.43
       '@next/env': 13.5.11
+      fast-glob: 3.3.3
       minimist: 1.2.8
       next: 13.5.11(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
 
