@@ -31,7 +31,7 @@ function createDay({
     count > 0 && count < 1000 && "heatmap_day_level_1",
     count >= 1000 && count < 2000 && "heatmap_day_level_2",
     count >= 2000 && count < 3000 && "heatmap_day_level_3",
-    count >= 3000 && "heatmap_day_level_4"
+    count >= 3000 && "heatmap_day_level_4",
   );
 
   day.setAttribute("data-date", date);

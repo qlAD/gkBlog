@@ -1,7 +1,5 @@
-"use client";
-
 import Image from "next/image";
-import React from "react";
+import React, { ComponentProps } from "react";
 
 import { cn } from "@/lib/utils";
 

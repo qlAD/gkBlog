@@ -1,18 +1,18 @@
-import { useEffect, useState } from "react";
-
 import { Content } from "@/contents/index/CleanIntuitive";
+import { useEffect, useRef, useState } from "react";
 
 export const useAnimateContent = (content: Array<Content>) => {
   const [currentState, setCurrentState] = useState<Content>(content[0]);
   const [isUserClick, setIsUserClick] = useState(false);
 
-  useEffect(() => {
-    let animateState: NodeJS.Timer;
-    let timeOutState: NodeJS.Timeout;
+  // Use refs to store timer IDs
+  const animateStateRef = useRef<NodeJS.Timeout | null>(null);
+  const timeOutStateRef = useRef<NodeJS.Timeout | null>(null);
 
+  useEffect(() => {
     if (isUserClick) {
-      timeOutState = setTimeout(() => {
-        animateState = setInterval(() => {
+      timeOutStateRef.current = setTimeout(() => {
+        animateStateRef.current = setInterval(() => {
           setCurrentState(
             (prev) =>
               content[
@@ -26,7 +26,7 @@ export const useAnimateContent = (content: Array<Content>) => {
         setIsUserClick(false);
       }, 5000);
     } else {
-      animateState = setInterval(() => {
+      animateStateRef.current = setInterval(() => {
         setCurrentState(
           (prev) =>
             content[
@@ -39,9 +39,14 @@ export const useAnimateContent = (content: Array<Content>) => {
     }
 
     return () => {
-      clearInterval(animateState);
-      clearTimeout(timeOutState);
+      if (animateStateRef.current) {
+        clearInterval(animateStateRef.current);
+      }
+      if (timeOutStateRef.current) {
+        clearTimeout(timeOutStateRef.current);
+      }
     };
-  }, [content, isUserClick, currentState]);
+  }, [content, isUserClick]);
+
   return { setIsUserClick, currentState, setCurrentState };
 };

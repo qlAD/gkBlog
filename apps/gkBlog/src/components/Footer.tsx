@@ -99,7 +99,7 @@ function FooterGroup({ title, links }: FooterGroupProps) {
       <div
         className={clsx(
           "mb-2 px-2 text-[13px] text-slate-600",
-          "dark:text-slate-400"
+          "dark:text-slate-400",
         )}
       >
         {title}
@@ -126,7 +126,7 @@ function FooterDescription() {
       <div
         className={clsx(
           "mb-3 text-[13px] text-slate-600",
-          "dark:text-slate-400"
+          "dark:text-slate-400",
         )}
       >
         关于我
@@ -182,7 +182,7 @@ function Footer() {
     <footer
       className={clsx(
         "background-grid background-grid--fade-in border-divider-light mt-24 pt-16 text-sm text-slate-900",
-        "dark:border-divider-dark dark:text-slate-200"
+        "dark:border-divider-dark dark:text-slate-200",
       )}
     >
       <div className={clsx("content-wrapper")}>
@@ -194,7 +194,7 @@ function Footer() {
             <div
               className={clsx(
                 "-mx-2 flex flex-1 flex-col gap-8",
-                "sm:flex-row sm:gap-16 lg:mx-0"
+                "sm:flex-row sm:gap-16 lg:mx-0",
               )}
             >
               <div className={clsx("flex", "sm:gap-16")}>
@@ -286,7 +286,7 @@ function Footer() {
         <div
           className={clsx(
             "border-divider-light flex justify-between border-t py-6 text-xs",
-            "dark:border-divider-dark"
+            "dark:border-divider-dark",
           )}
         >
           <div className={clsx("font-semibold")}>

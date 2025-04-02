@@ -16,7 +16,7 @@ export function BarChart({ data }: BarChartProps) {
 
   const currentYear = new Date().getFullYear();
   const years = Array.from({ length: 20 }, (_, i) =>
-    (currentYear - 19 + i).toString()
+    (currentYear - 19 + i).toString(),
   );
 
   const countMap = new Map(data.map((item) => [item.year, item.count]));
@@ -29,7 +29,7 @@ export function BarChart({ data }: BarChartProps) {
   const maxCount = Math.max(...data.map((item) => item.count));
 
   const gridValues = Array.from({ length: 3 }, (_, i) =>
-    Math.ceil((maxCount / 3) * (i + 1))
+    Math.ceil((maxCount / 3) * (i + 1)),
   ).reverse();
 
   const chartHeight = 300;

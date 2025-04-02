@@ -47,7 +47,7 @@ function ActivityItem({
         <span
           className={clsx(
             "text-accent-600 font-semibold",
-            "dark:text-accent-400"
+            "dark:text-accent-400",
           )}
         >
           {contentTitle}
@@ -57,7 +57,7 @@ function ActivityItem({
           <span
             className={clsx(
               "border-divider-dark rounded-md border bg-slate-200 px-1 font-mono text-xs font-bold",
-              "dark:border-divider-light dark:bg-slate-800"
+              "dark:border-divider-light dark:bg-slate-800",
             )}
           >
             x{count}
@@ -74,7 +74,7 @@ function ActivityItem({
       <span
         className={clsx(
           "text-accent-600 font-semibold",
-          "dark:text-accent-400"
+          "dark:text-accent-400",
         )}
       >
         {contentTitle}
@@ -152,13 +152,13 @@ function Activity({ onItemClick = () => {} }: ActivityProps) {
             }}
             className={clsx(
               "border-divider-light block rounded-xl border bg-white/60 p-4 text-[13px] backdrop-blur",
-              "dark:border-divider-dark dark:bg-slate-900/60"
+              "dark:border-divider-dark dark:bg-slate-900/60",
             )}
           >
             <div
               className={clsx(
                 "mb-1 flex justify-between text-xs text-slate-600",
-                "dark:text-slate-400"
+                "dark:text-slate-400",
               )}
             >
               <span>{activity.activityType}</span>
@@ -187,7 +187,7 @@ function Activity({ onItemClick = () => {} }: ActivityProps) {
       <div
         className={clsx(
           "scrollbar-hide flex flex-1 basis-0 flex-col gap-2 overflow-y-auto p-2 pb-4",
-          "sm:pb-8"
+          "sm:pb-8",
         )}
       >
         {renderData()}

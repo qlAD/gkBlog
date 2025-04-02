@@ -208,7 +208,7 @@ function createDay({ date, title, count, posts }: DayProps) {
     count > 0 && count < 1000 && "heatmap_day_level_1",
     count >= 1000 && count < 2000 && "heatmap_day_level_2",
     count >= 2000 && count < 3000 && "heatmap_day_level_3",
-    count >= 3000 && "heatmap_day_level_4"
+    count >= 3000 && "heatmap_day_level_4",
   );
 
   const tooltip = createTooltip(title, count, posts);
@@ -251,7 +251,7 @@ export function Heatmap({ data }: HeatmapProps) {
           count: dayData?.wordCount || 0,
           title: dayData?.title,
           posts: dayData ? 1 : 0,
-        })
+        }),
       );
 
       currentDate.setDate(currentDate.getDate() + 1);
@@ -372,7 +372,7 @@ export function PieChart({ data }: PieChartProps) {
             className={cn(
               "transition-all duration-300",
               "hover:scale-105 hover:brightness-110",
-              "origin-center cursor-pointer"
+              "origin-center cursor-pointer",
             )}
           />
         );
@@ -411,7 +411,7 @@ interface BarChartProps {
 export function BarChart({ data }: BarChartProps) {
   const years = Array.from(
     { length: 20 },
-    (_, i) => new Date().getFullYear() - 19 + i
+    (_, i) => new Date().getFullYear() - 19 + i,
   ).map(String);
 
   const maxCount = Math.max(...data.map((item) => item.count));
@@ -509,7 +509,7 @@ export function TagCloud({ tags }: TagCloudProps) {
     tags.reduce<Record<string, number>>((acc, tag) => {
       acc[tag] = (acc[tag] || 0) + 1;
       return acc;
-    }, {})
+    }, {}),
   )
     .map(([name, count]) => ({ name, count }))
     .sort((a, b) => b.count - a.count);
@@ -530,7 +530,7 @@ export function TagCloud({ tags }: TagCloudProps) {
           <span
             className={cn(
               "px-2 py-1 text-white rounded-r-md",
-              getTagColorClass(count, maxCount)
+              getTagColorClass(count, maxCount),
             )}
           >
             {count}

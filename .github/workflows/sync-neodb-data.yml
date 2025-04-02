@@ -181,7 +181,7 @@ jobs:
         if: ${{ env.REMOTE_UUID != env.CURRENT_UUID }}
         uses: actions/setup-python@v5
         with:
-          python-version: '3.13'
+          python-version: "3.13"
 
       # 更新电影详情
       - name: Fetch Movie Details
@@ -195,9 +195,9 @@ jobs:
         if: ${{ env.REMOTE_UUID != env.CURRENT_UUID }}
         uses: EndBug/add-and-commit@v9
         with:
-          message: 'chore(data): update neodb data'
-          committer_name: 'github-actions[bot]'
-          committer_email: 'github-actions[bot]@users.noreply.github.com'
+          message: "chore(data): update neodb data"
+          committer_name: "github-actions[bot]"
+          committer_email: "github-actions[bot]@users.noreply.github.com"
           add: |
             './apps/gkBlog/public/assets/data/neodb'
             './apps/gkBlog/public/assets/images/neodb/cover'

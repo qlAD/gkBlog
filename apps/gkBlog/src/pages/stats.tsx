@@ -65,8 +65,8 @@ export const getStaticProps: GetStaticProps = async () => {
         acc[year] = (acc[year] || 0) + 1;
         return acc;
       },
-      {} as Record<string, number>
-    )
+      {} as Record<string, number>,
+    ),
   ).map(([year, count]) => ({ year, count }));
 
   const postsByCategory = Object.entries(
@@ -76,8 +76,8 @@ export const getStaticProps: GetStaticProps = async () => {
         acc[category] = (acc[category] || 0) + 1;
         return acc;
       },
-      {} as Record<string, number>
-    )
+      {} as Record<string, number>,
+    ),
   ).map(([category, count]) => ({ category, count }));
 
   const stats = {
@@ -86,7 +86,7 @@ export const getStaticProps: GetStaticProps = async () => {
     totalTags: new Set(allPostsData.flatMap((post) => post.tags)).size,
     totalWordCount: allPostsData.reduce(
       (sum, post) => sum + post.frontMatter.wordCount,
-      0
+      0,
     ),
     posts: allPostsData.map((post) => ({
       date: post.date,

@@ -12,7 +12,7 @@ export function Do({ children = null }: PropsWithChildren) {
       <div
         className={clsx(
           "relative flex items-start gap-2 pb-2 text-sm font-semibold text-slate-700",
-          "dark:text-slate-300"
+          "dark:text-slate-300",
         )}
       >
         <div className={clsx("")}>
@@ -22,7 +22,7 @@ export function Do({ children = null }: PropsWithChildren) {
           <div
             className={clsx(
               "absolute left-2.5 h-full w-[1px] bg-green-400 opacity-50",
-              "dark:bg-green-900"
+              "dark:bg-green-900",
             )}
           />
         </div>
@@ -39,7 +39,7 @@ export function Dont({ children = null }: PropsWithChildren) {
       <div
         className={clsx(
           "relative flex items-start gap-2 pb-2 text-sm font-semibold text-slate-700",
-          "dark:text-slate-300"
+          "dark:text-slate-300",
         )}
       >
         <div className={clsx("")}>
@@ -49,7 +49,7 @@ export function Dont({ children = null }: PropsWithChildren) {
           <div
             className={clsx(
               "absolute left-2.5 h-full w-[1px] bg-red-400 opacity-50",
-              "dark:bg-red-900"
+              "dark:bg-red-900",
             )}
           />
         </div>
@@ -66,7 +66,7 @@ export function DnD({ children = null }: PropsWithChildren) {
       className={clsx(
         "border-divider-light mdx-dnd flex flex-col gap-6 rounded-xl",
         "lg:flex-row",
-        "dark:border-divider-dark"
+        "dark:border-divider-dark",
       )}
     >
       {children}
@@ -83,7 +83,7 @@ export function ItemTag({ children = null }: PropsWithChildren) {
     <div
       className={clsx(
         "bg-accent-600/[0.08] text-accent-600 inline-flex h-6 items-center gap-1 rounded-full px-2 text-[13px] font-medium",
-        "dark:text-accent-400 dark:dark:bg-accent-400/10 dark:font-normal"
+        "dark:text-accent-400 dark:dark:bg-accent-400/10 dark:font-normal",
       )}
     >
       #{children}
@@ -98,21 +98,21 @@ export function Item({ children = null }: PropsWithChildren) {
         className={clsx(
           "pointer-events-none sticky top-[86px] -ml-8 pb-12",
           "md:-ml-12 lg:-ml-24",
-          "fm:relative fm:top-0"
+          "fm:relative fm:top-0",
         )}
       >
         <div
           className={clsx(
             "absolute -ml-0.5 mt-2.5 h-4 w-4 rounded-full border-2 border-slate-700 bg-white",
             "md:-ml-3 md:mt-2 md:h-5 md:w-5",
-            "dark:border-slate-300 dark:bg-slate-900"
+            "dark:border-slate-300 dark:bg-slate-900",
           )}
         />
         <div
           className={clsx(
             "absolute z-[-1] mt-4 -ml-2 w-8 border border-slate-700",
             "md:-ml-4 md:w-10 lg:w-12",
-            "dark:border-slate-300"
+            "dark:border-slate-300",
           )}
         />
       </div>
@@ -136,14 +136,14 @@ export function Items({
         <div
           className={clsx(
             "mt-4 pt-1.5 md:sticky md:top-[86px]",
-            "fm:relative fm:top-0"
+            "fm:relative fm:top-0",
           )}
         >
           <div
             className={clsx(
               "font-mono font-bold text-slate-700",
               "md:text-right",
-              "dark:text-slate-300"
+              "dark:text-slate-300",
             )}
           >
             <time className={clsx("md:block lg:hidden")} dateTime={date}>
@@ -158,13 +158,13 @@ export function Items({
       <div
         className={clsx(
           "border-divider-light items-stretch border",
-          "dark:border-divider-dark"
+          "dark:border-divider-dark",
         )}
       />
       <div
         className={clsx(
           "flex min-w-0 flex-1 flex-col gap-16 py-8",
-          "md:gap-0 md:py-4"
+          "md:gap-0 md:py-4",
         )}
       >
         {children}

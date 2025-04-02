@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import { m } from "framer-motion";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import useSound from "use-sound"; // 导入 use-sound
 
 import Card from "./Card";
