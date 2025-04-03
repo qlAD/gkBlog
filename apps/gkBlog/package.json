@@ -36,7 +36,7 @@
     "front-matter": "^4.0.2",
     "jsonata": "^2.0.6",
     "lodash": "^4.17.21",
-    "next": "^13.5.11",
+    "next": "^14.0.0",
     "next-themes": "^0.4.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
