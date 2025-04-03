@@ -28,7 +28,7 @@
     "@react-three/drei": "^9.122.0",
     "@react-three/fiber": "^8.18.0",
     "@shadcn/ui": "^0.0.4",
-    "@vercel/og": "^0.0.22",
+    "@vercel/og": "^0.6.0",
     "axios": "^1.8.4",
     "clsx": "^1.2.1",
     "dayjs": "^1.11.13",
