@@ -30,7 +30,7 @@
     "@shadcn/ui": "^0.0.4",
     "@vercel/og": "^0.6.0",
     "axios": "^1.8.4",
-    "clsx": "^1.2.1",
+    "clsx": "^2.0.0",
     "dayjs": "^1.11.13",
     "framer-motion": "7.7.0",
     "front-matter": "^4.0.2",
