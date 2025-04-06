@@ -114,8 +114,8 @@ importers:
         specifier: ^1.2.2
         version: 1.2.2
       slug:
-        specifier: ^8.2.3
-        version: 8.2.3
+        specifier: ^10.0.0
+        version: 10.0.0
       swr:
         specifier: ^2.3.3
         version: 2.3.3(react@18.3.1)
@@ -293,8 +293,8 @@ importers:
         specifier: ^6.0.0
         version: 6.0.0
       slug:
-        specifier: ^8.2.3
-        version: 8.2.3
+        specifier: ^10.0.0
+        version: 10.0.0
       zod:
         specifier: ^3.24.2
         version: 3.24.2
@@ -3472,8 +3472,8 @@ packages:
     resolution: {integrity: sha512-g9Q1haeby36OSStwb4ntCGGGaKsaVSjQ68fBxoQcutl5fS1vuY18H3wSt3jFyFtrkx+Kz0V1G85A4MyAdDMi2Q==}
     engines: {node: '>=8'}
 
-  slug@8.2.3:
-    resolution: {integrity: sha512-fXjhAZszNecz855GUNIwW0+sFPi9WV4bMiEKDOCA4wcq1ts1UnUVNy/F78B0Aat7/W3rA+se//33ILKNMrbeYQ==}
+  slug@10.0.0:
+    resolution: {integrity: sha512-M8s2PWOUeSCdD4S1NH5lCzXg2zFV1fozrtfr0FSKl65x+EF1rUowj+/vyFlnHgxPxWzT+DL0VXKfYc1DHJoymg==}
     hasBin: true
 
   source-map-js@1.2.1:
@@ -7892,7 +7892,7 @@ snapshots:
 
   slash@3.0.0: {}
 
-  slug@8.2.3: {}
+  slug@10.0.0: {}
 
   source-map-js@1.2.1: {}
 

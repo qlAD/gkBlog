@@ -17,7 +17,7 @@
     "remark-frontmatter": "^4.0.1",
     "remark-gfm": "^3.0.1",
     "remark-math": "^6.0.0",
-    "slug": "^8.2.3",
+    "slug": "^10.0.0",
     "zod": "^3.24.2"
   },
   "devDependencies": {
