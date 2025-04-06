@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "rehype-katex": "^7.0.1",
-    "rehype-prism-plus": "^1.6.3",
+    "rehype-prism-plus": "^2.0.0",
     "unist-util-visit": "^4.1.2"
   },
   "devDependencies": {
