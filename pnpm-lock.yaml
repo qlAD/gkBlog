@@ -256,8 +256,8 @@ importers:
         specifier: ^2.0.0
         version: 2.0.1
       unist-util-visit:
-        specifier: ^4.1.2
-        version: 4.1.2
+        specifier: ^5.0.0
+        version: 5.0.0
     devDependencies:
       eslint-config-typescript:
         specifier: workspace:*
