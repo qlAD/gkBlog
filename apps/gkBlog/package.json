@@ -51,7 +51,7 @@
     "tailwindcss-accent": "^2.1.2",
     "three": "^0.175.0",
     "use-local-storage-state": "^19.0.0",
-    "use-sound": "^4.0.4",
+    "use-sound": "^5.0.0",
     "zod": "^3.24.2"
   },
   "devDependencies": {
