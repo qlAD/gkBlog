@@ -300,7 +300,7 @@ function Footer() {
                   rel="noopener noreferrer"
                   style={{ margin: "0 5px" }}
                 >
-                  陕ICP备2024050194号-1
+                  暂无ICP备案
                 </a>
               </span>
               <br />
@@ -318,7 +318,7 @@ function Footer() {
                   rel="noreferrer"
                   target="_blank"
                 >
-                  陕公网安备61072102000193
+                  京公网安备-
                 </a>
               </span>
             </div>
