@@ -1,0 +1,99 @@
+---
+title: 如何同步fork项目原仓库的更新
+description: "我们经常会遇到原仓库更新，重新fork显然是不优雅的，那我我们该怎么同步更新呢？"
+date: "2025-06-26"
+lang: zh
+tags:
+  - Github
+  - 编程
+category: 技术
+cover: https://boost.jpgcdn.com/c2.jpgcdn.com/2025/06/26/sAza.png
+---
+
+import Image from "@/components/mdx/Image";
+
+<Image
+  src="https://boost.jpgcdn.com/c2.jpgcdn.com/2025/06/26/sAza.png"
+  alt="cover"
+  width={999}
+  height={527}
+  isArticleImage={true}
+/>
+Github 我们经常会通过 fork 开源项目在自己的仓库中更新，然后提交 Pull Request
+(Merge Request) 为开源项目做贡献。 不过我们经常会遇到原仓库更新，重新 fork
+显然是不优雅的，那我我们该怎么同步更新呢？
+<Image
+  src="https://pic4.zhimg.com/80/v2-7f0a77dd7d7a47761846668fe061c70b_1440w.webp"
+  alt="cover"
+  width={789}
+  height={532}
+  isArticleImage={true}
+/>
+
+## 如何在 Github 网页端同步更新？
+
+1. 进入你自己的 fork 过来的仓库。
+2. 点击 “Pull requests” ，如何点击右侧绿色的 “New pull request”。
+3. Github 首先会比较源仓库与你 fork 后的仓库，如果你没有做任何更改，则找不到要 PR 的内容。所以，我们需要点击 “switching the base”，会将我们的仓库作为基础版本，原仓库作为 head 版本，现在我们会看到我们的需要需要“catch up” 的更新。
+4. 点击 “Create pull request”，起一个名字，然后点击 “Create pull request”。
+5. 点击 “Merge pull request”，然后点击 “Confirm merge”。
+6. 如果我们没提交什么新代码，merge 过程将自动完成。
+
+## 如何通过本地命令行同步更新？
+
+1. 验证远程分支可以 fetch 或 push
+
+```bash
+git remote -v
+```
+
+2. 指明我们需要同步的仓库
+
+```bash
+git remote add upstream https://github.com/OriginalRepo/OriginalProject.git
+```
+
+3. 验证
+
+```bash
+git remote -v
+```
+
+4. 拉取更新的 branches 和 commits
+
+```bash
+git fetch upstream
+```
+
+5. Checkout 本地分支
+
+```bash
+git checkout master
+```
+
+6. 合并
+
+```bash
+git merge upstream/master
+```
+
+7. 提交
+
+```bash
+git push origin master
+```
+
+自动同步报错后如何手动同步（如 ChatGPT-Next-Web 项目自动更新报错）
+
+## 从 Web UI 同步 fork 分支
+
+1. 在 GitHub 上，导航到要与上游存储库同步的分叉存储库的主页。
+2. 在文件列表上方，选择“同步分支”下拉菜单。
+   <Image
+     src="https://docs.github.com/assets/cb-75616/images/help/repository/sync-fork-dropdown.png"
+     alt="cover"
+     width={759}
+     height={289}
+     isArticleImage={true}
+   />
+   分叉主页的屏幕截图。标有同步图标和“同步分支”的下拉菜单以深橙色勾勒。

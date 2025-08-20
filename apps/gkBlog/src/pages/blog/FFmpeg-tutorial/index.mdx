@@ -1,0 +1,197 @@
+---
+title: "ffmpeg 使用教程"
+description: "文章描述"
+date: "2025-07-23"
+lang: zh
+tags:
+  - Mac
+  - 技术
+category: 技术
+cover: "https://boost.jpgcdn.com/t3.jpgcdn.com/2025/07/23/3yr3.png"
+---
+
+import Image from "@/components/mdx/Image";
+
+<Image
+  src="https://boost.jpgcdn.com/t3.jpgcdn.com/2025/07/23/3yr3.png"
+  alt="ffmpeg 使用教程"
+  width={999}
+  height={527}
+  isArticleImage={true}
+/>
+
+## ffmpeg 教程
+
+### 一、重新创建 filelist.txt 文件
+
+推荐使用命令行工具直接生成列表文件，这样能避免文本编辑器可能引入的格式问题。具体操作如下：
+
+1. 打开终端，进入视频所在的目录。
+2. 执行下面的命令生成文件列表：
+
+```bash
+printf "file '%s'\n" *.mp4 > filelist.txt
+```
+
+要是你的视频文件名包含特殊字符（像空格、单引号等），可以使用这个更安全的命令：
+
+```bash
+for f in *.mp4; do echo "file '$f'" >> filelist.txt; done
+```
+
+### 二、验证文件格式
+
+生成文件后，可通过以下命令检查文件格式是否正确：
+
+```bash
+cat -e filelist.txt
+```
+
+正确的输出应该是这个样子：
+
+```
+file 'video1.mp4'$
+file 'video2.mp4'$
+file 'video3.mp4'$
+```
+
+这里的 `$` 符号代表换行符。如果看到 `^M$`，就说明存在 Windows 风格的换行符（CRLF），需要进行转换。
+
+### 三、转换文件格式（如果有需要）
+
+若文件格式存在问题，可使用以下命令将换行符转换为 Unix 格式：
+
+```bash
+tr -d '\r' < filelist.txt > filelist_unix.txt
+mv filelist_unix.txt filelist.txt
+```
+
+### 四、再次执行合并命令
+
+文件格式确认无误后，重新执行合并命令：
+
+```bash
+ffmpeg -f concat -safe 0 -i filelist.txt -c copy output.mp4
+```
+
+### 五、其他可能的解决办法
+
+如果上述方法都不管用，还可以尝试使用绝对路径。先获取当前目录的绝对路径：
+
+```bash
+pwd
+```
+
+假设输出是 `/Users/yourname/Videos`，那么文件列表应该写成这样：
+
+```
+file '/Users/yourname/Videos/video1.mp4'
+file '/Users/yourname/Videos/video2.mp4'
+```
+
+要是视频文件不在同一目录，就需要使用完整的绝对路径。
+
+### 六、使用更安全的转义方式
+
+对于包含特殊字符的文件名，可使用双引号和转义符：
+
+```bash
+for f in *.mp4; do echo "file \"$(printf "%q" "$f")\"" >> filelist.txt; done
+```
+
+### 故障排除建议
+
+- 检查视频文件是否都在当前目录下。
+- 确认文件名中没有未闭合的单引号或其他特殊字符。
+- 尝试手动创建一个简单的文件列表，比如只包含两个视频文件，测试基本功能是否正常。
+
+通过上述步骤，应该能够解决 `unknown keyword 'file''` 的错误，顺利合并视频。（但是音频部分丢失）
+
+—下述方法音频正常：
+当使用 FFmpeg 合并 TS 文件后出现音频丢失的问题，通常与流映射、编码器兼容性或合并方法有关。以下是可能的原因及解决方案：
+
+### **1. 合并方法不正确**
+
+直接使用 `cat` 或简单的文件拼接会破坏音视频同步，导致音频丢失。**正确方法**是使用 FFmpeg 的 `concat` 协议或 `concat` 过滤器：
+
+#### **方案 1：使用 `concat` 协议（推荐）**
+
+创建一个文本文件 `list.txt`，列出所有 TS 文件：
+
+```txt
+file 'part1.ts'
+file 'part2.ts'
+file 'part3.ts'
+```
+
+然后执行合并：
+
+```bash
+ffmpeg -f concat -safe 0 -i list.txt -c copy output.ts
+```
+
+- **参数说明**：
+  - `-f concat`：指定使用 concat 协议。
+  - `-safe 0`：允许使用绝对路径或相对路径。
+  - `-c copy`：直接复制音视频流，不重新编码（速度快）。
+
+### **2. 流映射问题**
+
+如果 TS 文件的音视频流索引不一致，FFmpeg 可能会忽略某些流。使用 `-map` 参数强制包含所有音视频流：
+
+```bash
+ffmpeg -f concat -safe 0 -i list.txt -map 0 -c copy output.ts
+```
+
+- `-map 0`：映射输入文件中的所有流（音频+视频）。
+
+### **3. 音频编码不兼容**
+
+如果原始 TS 文件的音频编码不同（如部分 AAC、部分 MP3），合并时可能导致音频丢失。此时需要重新编码音频：
+
+```bash
+ffmpeg -f concat -safe 0 -i list.txt -c:v copy -c:a aac output.mp4
+```
+
+- `-c:v copy`：视频流直接复制。
+- `-c:a aac`：音频重新编码为 AAC（兼容性更好）。
+
+### **4. 检查原始 TS 文件的音频**
+
+使用以下命令确认每个 TS 文件是否包含音频流：
+
+```bash
+ffmpeg -i part1.ts
+```
+
+如果某个文件没有音频，合并后整体音频会中断。此时需要单独处理缺失音频的文件。
+
+### **5. 使用 `concat` 过滤器（更灵活）**
+
+当 TS 文件格式差异较大时，`concat` 过滤器更可靠（但需要重新编码）：
+
+```bash
+ffmpeg -i part1.ts -i part2.ts -i part3.ts \
+  -filter_complex "[0:v] [0:a] [1:v] [1:a] [2:v] [2:a] concat=n=3:v=1:a=1 [v] [a]" \
+  -map "[v]" -map "[a]" -c:v libx264 -c:a aac output.mp4
+```
+
+- **参数说明**：
+  - `concat=n=3:v=1:a=1`：合并 3 个文件的视频和音频。
+  - `-c:v libx264 -c:a aac`：重新编码为 H.264+AAC。
+
+### **6. 修复损坏的 TS 文件**
+
+如果 TS 文件本身损坏，可能导致音频丢失。尝试先修复单个文件：
+
+```bash
+ffmpeg -i corrupted.ts -c copy -bsf:v h264_mp4toannexb -f mpegts fixed.ts
+```
+
+### **总结步骤**
+
+1. **确认 TS 文件有音频**：使用 `ffmpeg -i` 检查每个文件的流信息。
+2. **优先使用 `concat` 协议**：简单且保留原始编码。
+3. **强制映射所有流**：添加 `-map 0` 参数确保音频不被忽略。
+4. **重新编码音频**：若格式不兼容，使用 `-c:a aac` 重新编码。
+5. **使用过滤器**：格式差异大时，用 `concat` 过滤器合并并重新编码。

@@ -1,0 +1,364 @@
+---
+title: GitHub 部署常用命令
+description: "GitHub提交修改上传同步回退等常用命令。本文将详细介绍实际项目中如何应用它。"
+date: "2025-06-19"
+lang: zh
+tags:
+  - Github
+  - 编程
+category: 技术
+cover: https://cdn.qladgk.com/images/20250508161829098.png
+---
+
+import Image from "@/components/mdx/Image";
+
+<Image
+  src="https://cdn.qladgk.com/images/20250508161829098.png"
+  alt="cover"
+  width={999}
+  height={527}
+  isArticleImage={true}
+/>
+
+import TIL from "@/components/mdx/TIL";
+
+## 将本地代码同步到 GitHub 的步骤
+
+当您在本地完成代码调试并确认修改无误后，可以按照以下步骤将更改推送到 GitHub。
+
+### 1. 检查修改状态
+
+首先查看哪些文件被修改、添加或删除：
+
+```bash
+git status
+```
+
+- 这会显示当前工作目录的状态，包括：
+- 已修改但未暂存的文件（红色）
+- 已暂存但未提交的文件（绿色）
+- 示例输出：
+- Changes not staged for commit:
+- modified: package.json
+- modified: src/App.tsx
+
+### 2. 添加修改到暂存区
+
+- 将您想要提交的文件添加到暂存区：
+
+```bash
+git add .
+```
+
+- 或仅添加特定文件
+
+```bash
+git add src/components/Reactions.tsx
+```
+
+### 3. 提交修改
+
+```bash
+- 将暂存区的修改提交到本地仓库：
+git commit -m "修复 Reactions 组件的空值引用错误"
+```
+
+提交信息 应简洁明了，描述此次修改的目的
+
+- 可以使用多行提交信息：
+  git commit -m "修复 Reactions 组件的空值引用错误"
+- 添加了对 meta 和 metaUser 对象的空值检查，
+- 确保在数据未加载或不完整时组件仍能正常运行。
+- 查看提交记录
+
+```bash
+git log --oneline
+```
+
+- 示例输出：
+- 1a2b3c4 (HEAD -> main) 修复首页布局问题，更新依赖版本
+- 5d6e7f8 初始化项目
+
+### 4. 拉取最新代码（重要！）
+
+```bash
+- 在推送前，确保您的本地仓库是最新的：
+git pull origin main/git pull
+```
+
+```bash
+- 如果有冲突，需要解决冲突后再提交
+- 冲突解决后，再次提交：
+git add .
+git commit -m "解决与远程仓库的冲突"
+```
+
+### 5. 推送修改到 GitHub
+
+```bash
+- 将本地提交推送到 GitHub 仓库：
+git push origin main
+```
+
+origin 是远程仓库的别名
+main 是要推送的分支名称（根据您的仓库可能是 `master`）
+
+- 如果是首次推送，可能需要设置上游分支
+
+```bash
+git push -u origin main
+```
+
+### 6. 验证提交
+
+- 1. 访问您的 GitHub 仓库页面
+- 2. 检查提交历史，确认您的修改已成功推送
+- 3. 查看 Vercel 自动部署状态，确认网站已更新
+
+## 常见问题解决
+
+### 1. 忘记配置Git用户信息
+
+```bash
+git config --global user.name "您的 GitHub 用户名"
+git config --global user.email "您的 GitHub 邮箱"
+```
+
+### 2. 权限问题
+
+如果推送时提示权限错误，可能需要：
+
+```bash
+- 使用 SSH 密钥（推荐）
+- 或重新设置远程仓库 URL
+git remote set-url origin git@github.com:leafshow/gkBlog.git
+```
+
+### 3. 分支不同步
+
+如果本地分支落后于远程分支：
+
+```bash
+git pull --rebase origin main
+```
+
+### 4. 认证失败
+
+- 检查远程仓库URL
+
+```bash
+git remote -v
+```
+
+- 如果是HTTPS，切换到SSH
+
+```bash
+git remote set-url origin git@github.com:username/repo.git
+```
+
+### 5. 冲突解决
+
+- 查看冲突文件
+
+```bash
+git status
+```
+
+- 手动编辑冲突文件，然后
+
+```bash
+git add .
+git commit
+```
+
+撤销上次提交：
+
+- 保留修改
+
+```bash
+git reset --soft HEAD^
+```
+
+- 不保留修改
+
+```bash
+git reset --hard HEAD^
+```
+
+### 6.工作流建议
+
+1. 创建分支：对于较大的修改，建议创建新分支：
+
+- 例如创建修复bug分支：
+
+```bash
+git checkout -b fix-reactions-component
+```
+
+- 完成修改后
+
+```bash
+git push origin fix-reactions-component
+```
+
+- 例如创建开发新页面分支：
+
+```bash
+git checkout -b feature/new-page
+```
+
+- 开发完成后合并
+
+```bash
+git checkout main
+git merge feature/new-page
+```
+
+- 例如创建新功能分支
+
+```bash
+git flow feature start new-feature
+```
+
+2. Pull Request：通过 GitHub 创建 Pull Request，进行代码审查后再合并到主分支
+
+3. 持续集成：配置 GitHub Actions 或 Vercel 的自动部署，确保每次提交都能触发构建和测试
+
+4. 初始化Git Flow
+
+```bash
+git flow init
+```
+
+5. 发布版本
+
+```bash
+git flow release start 1.0.0
+```
+
+6. 定期拉取更新
+
+```bash
+- 每天开始工作前
+git pull origin main
+```
+
+### 7. 修改报错后回退
+
+- 可以回退到修改前的内容。因为已经执行了commit提交操作，所以需要将git仓库版本恢复到上一个版本，然后将暂存区域文件恢复到工作目录，可以按照以下步骤进行操作：
+
+1. 先使用
+
+```bash
+git reset HEAD~
+```
+
+命令，将版本回退到上一个版本，此时文件恢复到了暂存区域。2. 再执行
+
+```bash
+git checkout -- apps/gkBlog/src/components/Footer.tsx
+```
+
+将暂存区域的文件恢复到工作目录，这样就可以将Footer.tsx文件回退到修改前的状态了。3. 另外，如果使用git reset命令回退版本后，还需要将本地的回退结果推送到远程仓库，可以使用
+
+```bash
+git push -f
+```
+
+命令，但要注意该操作可能会覆盖远程仓库的提交历史，使用时需谨慎。
+
+通过以上步骤，您的修改将被安全地同步到 GitHub，并自动触发 Vercel 的部署流程。
+
+- 查看项目根目录下的 apps 目录
+
+```bash
+ls -la gkBlog
+```
+
+- 查看 apps/gkBlog/src/pages 目录
+
+```bash
+ls -la apps/gkBlog/src/pages
+```
+
+- 查看 apps/gkBlog/src/pages/blog 目录
+
+```bash
+ls -la apps/gkBlog/src/pages/blog
+```
+
+- 检查配置路径是否存在
+
+```bash
+ls -la apps/gkBlog/src/pages/blog
+```
+
+- 输出应显示你的MDX文件目录结构
+
+- 终极解决方案
+- 如果以上步骤仍无法解决问题，建议：
+
+1. 重置 TinaCMS 配置：
+
+```bash
+rm -rf .tina
+```
+
+2. 重新初始化 TinaCMS：
+
+```bash
+npx tinacms init
+```
+
+3. 逐步添加配置，每次测试是否能加载文件
+
+1. 确认正确的包名和版本
+   TinaCMS 最新版本已将 @tinacms/next 合并到核心包中，正确的安装命令应为：
+
+- 安装TinaCMS核心包和必要依赖
+
+```bash
+npm install tinacms @tinacms/cli @tinacms/mdx next react react-dom --save-dev
+```
+
+2. 清除 npm 缓存并重新安装
+
+```bash
+- 清除全局和项目缓存
+npm cache clean --force
+```
+
+- 重新安装依赖（指定版本避免兼容性问题）
+
+```bash
+npm install tinacms@5.15.0 @tinacms/cli@5.15.0 @tinacms/mdx@5.15.0 next@15.3.3 --save-dev
+```
+
+1. 重新初始化 TinaCMS：
+
+```bash
+npx tinacms init
+```
+
+2. 启动开发服务器：
+
+```bash
+npm run dev
+```
+
+<TIL.DnD>
+  <TIL.Dont>
+    ```md {copy:false} {footer:false}
+    fix: fix login issue, update readme, refactor header component
+
+    ```
+
+  </TIL.Dont>
+  <TIL.Do>
+    ```md {copy:false} {footer:false}
+    fix: fix login issue
+    docs: update readme for new login feature
+    refactor: refactor header component
+    ````
+  </TIL.Do>
+</TIL.DnD>

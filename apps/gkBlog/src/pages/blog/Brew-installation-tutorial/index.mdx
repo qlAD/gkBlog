@@ -1,0 +1,137 @@
+---
+title: "Mac新机安装Brew教程(M1芯片)"
+description: "Mac新机安装Brew教程(M1芯片)，基于gitee上某大神的自动安装脚本。"
+date: "2025-06-26"
+lang: zh
+tags:
+  - 编程
+  - 软件
+category: 技术
+cover: https://boost.jpgcdn.com/b2.jpgcdn.com/2025/06/26/sJuf.png
+---
+
+import Image from "@/components/mdx/Image";
+
+<Image
+  src="https://boost.jpgcdn.com/b2.jpgcdn.com/2025/06/26/sJuf.png"
+  alt="文章标题"
+  width={999}
+  height={527}
+  isArticleImage={true}
+/>
+
+## 文章标题
+
+### 一、Mac上安装Homebrew
+
+以下为国内安装Homebrew的正确姿势：(基于gitee上某大神的自动安装脚本)
+
+终端命令：
+
+```bash
+/bin/zsh -c “$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh)”
+```
+
+选择下载镜像：推荐选择1
+确认删除旧版本
+输入开机密码（用于mac确认第三方应用安装）
+安装git（如果没装过，会终止homebrew安装，弹git提示，点击“安装”）
+再次执行homebrew安装指令
+验证是否安装成功
+重启终端。（重启后才生效）
+
+终端输入：
+
+```bash
+brew -v
+```
+
+查看homebrew版本
+
+如正确输出版本信息，表示成功安装。
+
+在M1芯片上，homebrew的安装路径为：”/opt/Homebrew/“
+
+### 二、Homebrew卸载
+
+终端命令：
+
+```bash
+/bin/zsh -c “$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/HomebrewUninstall.sh)”
+```
+
+### 三、一些参数设置：
+
+首先在命令行运行如下几条命令设置环境变量：
+
+```bash
+export HOMEBREW_BREW_GIT_REMOTE=”_https://mirrors.ustc.edu.cn/brew.git"
+
+export HOMEBREW_CORE_GIT_REMOTE=”_https://mirrors.ustc.edu.cn/homebrew-core.git"
+
+export HOMEBREW_BOTTLE_DOMAIN=”https://mirrors.ustc.edu.cn/homebrew-bottles"
+
+export HOMEBREW_API_DOMAIN=”https://mirrors.ustc.edu.cn/homebrew-bottles/api"
+```
+
+若用户设置了环境变量 HOMEBREW_BREW_GIT_REMOTE，则每次运行 brew update 时将会自动设置远程。推荐用户将环境变量 HOMEBREW_BREW_GIT_REMOTE 加入 shell 的 profile 设置中。
+
+对于 zsh 用户：
+
+终端命令：
+
+```bash
+echo ‘export HOMEBREW_BREW_GIT_REMOTE=”_https://mirrors.ustc.edu.cn/brew.git"' >> ~/.zshrc
+```
+
+重置为官方地址：
+
+终端命令：
+
+```bash
+unsetHOMEBREW_BREW_GIT_REMOTEgit-C”$(brew –repo)”remoteset-_urloriginhttps://github.com/Homebrew/brew
+```
+
+brew update报错：
+
+fatal: not in a git directory
+
+Warning: No remote ‘origin’ in /opt/homebrew/Library/Taps/homebrew/homebrew-cask, skipping update!
+
+fatal: not in a git directory
+
+Warning: No remote ‘origin’ in /opt/homebrew/Library/Taps/homebrew/homebrew-services, skipping update!
+
+Already up-to-date.
+
+brew -v报错：
+
+Homebrew/homebrew-core (git revision 9b4144384db; last commit 2023-02-24)
+
+fatal: detected dubious ownership in repository at ‘/opt/homebrew/Library/Taps/homebrew/homebrew-cask’
+
+To add an exception for this directory, call:
+
+git config –global –add safe.directory /opt/homebrew/Library/Taps/homebrew/homebrew-cask
+
+Homebrew/homebrew-cask (no Git repository)
+
+zhangliye@zhangliyedeMacBook-Pro ~ % git config –global –add safe.directory /opt/homebrew/Library/Taps/homebrew/homebrew-cask
+
+brew update 报错：
+
+Warning: No remote’origin’in/opt/homebrew/Library/Taps/homebrew/homebrew-services, skipping update!Already up-to-date.
+
+解决：
+
+```bash
+rm-rf”/opt/homebrew/Library/Taps/homebrew/homebrew-services”brew tap homebrew/services
+```
+
+解决方法，添加安全目录：
+
+终端命令：
+
+```bash
+git config –global –add safe.directory xxx（路经）
+```

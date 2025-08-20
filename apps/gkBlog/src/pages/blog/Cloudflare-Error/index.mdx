@@ -1,0 +1,53 @@
+---
+title: "Cloudflare报错解决方案"
+description: "Cloudflare报错“重定向次数过多”解决方案"
+date: "2025-06-30"
+lang: zh
+tags:
+  - 建站
+  - 编程
+  - 工具
+category: 技术
+cover: https://boost.jpgcdn.com/c2.jpgcdn.com/2025/06/30/s7xx.png
+---
+
+import Image from "@/components/mdx/Image";
+
+<Image
+  src="https://boost.jpgcdn.com/c2.jpgcdn.com/2025/06/30/s7xx.png"
+  alt="文章标题"
+  width={999}
+  height={527}
+  isArticleImage={true}
+/>
+
+## Cloudflare报错“重定向次数过多”解决方案
+
+### 一、错误出现原因
+
+当你的服务器HTTP设置了重定向，同时CloudFlare的SSL/TLS功能设置成了灵活模式，这时服务器与CloudFlare之间的流量就变成了加密模式，重定向访问的过程中读取不到数据就照成访问失败并不断重复发送相同请求，访问网站就提示“重定向次数过多”的错误。
+
+<Image
+  src="https://www.3520.net/wp-content/uploads/2023/10/1698418133-8caeb0bb9a911f2a53fd2319dd302c75.jpeg"
+  alt="文章标题"
+  width={999}
+  height={527}
+  isArticleImage={true}
+/>
+
+### 解决方法
+
+修复Cloudflare报错“重定向次数过多”只需要修改CloudFlare的SSL/TLS的模式设置成“安全”或者“完全”即可。
+操作步骤：
+1、登录您的Cloudflare账号，网址：https://dash.cloudflare.com/
+2、选择你的站点，进入到管理页面
+3、打开左侧菜单“SSL/TLS”- 把SSL/TLS 加密模式改为“安全”或者“完全”模式。
+
+<Image
+  src="https://www.3520.net/wp-content/uploads/2023/10/1698184117-518a0f2a5f62e32ec6f874bd79a4666e.jpeg"
+  alt="文章标题"
+  width={999}
+  height={527}
+  isArticleImage={true}
+/>
+4、最后我们还需要清除一下CloudFlare的缓存和浏览器的全部缓存，过几分钟即可恢复访问正常。

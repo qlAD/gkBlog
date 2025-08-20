@@ -1,0 +1,145 @@
+---
+title: "mac 常用操作指令"
+description: "mac 常用操作指令 例如：关闭SIP，权限设置，批量新建文件夹..."
+date: "2025-07-02"
+lang: zh
+tags:
+  - Mac
+  - 学习
+category: 技术
+cover: https://boost.jpgcdn.com/b2.jpgcdn.com/2025/07/02/sFmb.png
+---
+
+import Image from "@/components/mdx/Image";
+
+<Image
+  src="https://boost.jpgcdn.com/b2.jpgcdn.com/2025/07/02/sFmb.png"
+  alt="mac 常用操作指令"
+  width={999}
+  height={527}
+  isArticleImage={true}
+/>
+
+## mac 常用操作指令
+
+### 一、Mac SIP设置
+
+先把Mac关机，然后在开机的同时按住Command+R键，直到出现苹果LOGO再松手。
+耐心等待进入OS X恢复模式，打开实用工具选项，选择终端;
+SIP 关闭命令：
+
+```bash
+csrutildisable
+```
+
+回车，终端上就会提示SIP成功关闭。
+SIP 开启命令：
+
+```bash
+csrutil enable
+```
+
+回车，SIP成功开启。
+
+### 二、使用 sudoers.d 目录管理特定应用程序权限。
+
+在 macOS 上，sudoers 文件的配置方式与 Linux 略有不同。macOS 使用的是 sudoers.d 目录来管理特定应用程序的权限。
+
+要编写一个sudoers.d文件以允许应用程序在 macOS 上免输密码运行，可以按照以下步骤进行操作：
+
+1. 打开终端，并以管理员身份执行以下命令创建一个新的sudoers.d文件：
+
+```bash
+sudo visudo -f /etc/sudoers.d/my_app
+```
+
+2. 在打开的文件中，添加以下内容（以示例应用程序为例）：
+
+```bash
+# 允许用户执行 /Applications/MyApp.app/Contents/MacOS/MyApp 时无需输入密码 %admin ALL=(ALL) NOPASSWD: /Applications/MyApp.app/Contents/MacOS/MyApp
+```
+
+这里假设应用程序位于 “/Applications/MyApp.app/Contents/MacOS/MyApp” 路径下。你可以根据实际情况修改路径和应用程序的名称。
+
+3. 保存并关闭文件。
+
+4. 确保sudoers.d文件的权限正确设置。执行以下命令：
+
+```bash
+sudo chmod 440 /etc/sudoers.d/my_app
+```
+
+现在，允许属于 “admin” 用户组的用户在执行指定的应用程序时无需输入密码。请注意，在编辑sudoers文件时应小心谨慎，任何误操作都可能导致系统出现问题。在修改之前最好备份原始文件或咨询管理员的意见。
+
+以 switchhosts 应用为例列举：
+
+```bash
+1.打开一个终端窗口，并以管理员身份执行以下命令创建一个新的sudoers.d文件：
+sudo visudo -f /etc/sudoers.d/switchhosts
+2.在打开的文件中，添加以下内容：
+# 允许用户执行 /Applications/SwitchHosts.app/Contents/MacOS/SwitchHosts 时无需输入密码 %admin ALL=(ALL) NOPASSWD: /Applications/SwitchHosts.app/Contents/MacOS/SwitchHosts
+3.保存并关闭文件
+按ESC后输入:wq!
+4.确保sudoers.d文件的权限正确设置。执行以下命令：
+sudo chmod 440 /etc/sudoers.d/my_app
+```
+
+这个sudoers.d文件对于SwitchHosts应用程序在macOS上免输密码，它允许属于admin用户组的用户在执行/Applications/SwitchHosts.app/Contents/MacOS/SwitchHosts时无需输入密码。
+
+请确保将文件保存在正确的路径/etc/sudoers.d/SwitchHosts中，并遵循正确设置文件的权限。此外，请注意，如果你正在使用一个不同的用户名或不同的位置来安装SwitchHosts，你需要相应地修改sudoers.d文件的内容。
+
+### 三、在Mac中快速批量创建文件夹
+
+当我们在进行剪辑工作的时候，常常会在项目文件夹中分为：脚本、素材、音乐、图片、项目文件等子文件，而当新的项目进来的时候，为了快速的整理和归档，我们仍然会使用这样的结构来归档新的项目，但是如果子文件夹一多，新建、重命名显然不是一个聪明的办法。
+
+把一项工作做好，都是有规律可循的，我们常常把规律也称之为「结构」。我们在工作中常常利用文件夹的形式来呈现最佳工作流，比如在我自己开发课程的过程中，会给一个课程项目划分了如下几个子文件夹：
+
+01*Scripts：课程脚本*
+
+02*Slides：课程演示文档*
+
+03*ExerciseFiles：课程配套文件*
+
+04*Design：设计文件资料*
+
+05*Marketing：营销活动资料*
+
+06*Operation：教务活动资料*
+
+当时当我要研发新的课程的时候，再重新根据这些文档来新建显然是非常浪费时间的，所以我们就需要一个可以根据这个「模版」自动批量新建文件夹的工具：Mac Terminal。
+
+1. 方法一：Mkdir
+   你可以打开 Mac 的命令行工具 Terminal，然后使用cd到具体的需要创建子文件夹的文件夹里，再执行对应的命令mkdir命令：
+
+```bash
+cd /Users/aban/Documents/Sites/course
+mkdir “01_Scripts” “02_Slides” “03_ExerciseFiles” “04_Design” “05_Marketing” “06_Operation”
+```
+
+这样一来，系统就会自动在Course的文件夹里头创建了5个子文件夹了。
+
+2. 方法二：Mkdir
+   如果你的文件夹一多，这样手动输入的方式也不是特别的方法。所以我们可以先把对应的「子文件夹名」输入到txt文档中，比如dirlist.txt，然后在保存到具体的需要创建子文件夹的文件夹里：
+
+01*Scripts*
+
+02*Slides*
+
+03*ExerciseFiles*
+
+04*Design*
+
+05*Marketing*
+
+06*Operation*
+
+然后还是使用 Terminal cd命令进入到这个文件夹里，然后使用更为更强大的xargs命令：
+
+```bash
+cd /Users/aban/Documents/Sites/course
+cat dirlist.txt | xargs mkdir
+```
+
+用这个方法，还是同样可以在Course的文件夹里头创建同样的5个子文件夹。
+
+这样一来，下一次当你需要同样的项目结构的时候，只要输入这行短短的命令，所有的文件夹就会自动新建完成了。

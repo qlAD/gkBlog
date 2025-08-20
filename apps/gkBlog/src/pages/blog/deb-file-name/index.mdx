@@ -1,0 +1,50 @@
+---
+title: "deb文件名解读"
+description: "文章为什么有时候一个插件deb，会有几个不同文件？"
+date: "2025-07-23"
+lang: zh
+tags:
+  - IOS
+  - 技术
+category: 技术
+cover: "https://boost.jpgcdn.com/b2.jpgcdn.com/2025/07/23/3MNK.png"
+---
+
+import Image from "@/components/mdx/Image";
+
+<Image
+  src="https://boost.jpgcdn.com/b2.jpgcdn.com/2025/07/23/3MNK.png"
+  alt="deb文件名解读"
+  width={999}
+  height={527}
+  isArticleImage={true}
+/>
+
+## deb文件名解读
+
+### 一、章节标题
+
+deb看文件名：
+xx根、 iphoneos-xxx、或简写armxx，一眼便知是啥！
+
+### 1、有根越狱：
+
+iphoneos-arm
+（iOS14及以下版本的越狱）
+
+### 2、无根越狱：
+
+iphoneos-arm64
+（iOS15-16的越狱，常规Dopamine等）
+
+### 3、隐根越狱：
+
+iphoneos-arm64e
+（特指RootHide版的Dopamine，或者Bootsrap半越狱工具。）
+
+巨魔TrollFools注入，不管deb格式、dylib，或现成的一键zip，直接注入，都可以！！
+
+签名工具一般都支持deb或者dylib注入！！！
+
+为什么有时候一个插件deb，会有几个文件？
+那是开发者仁慈，适配无根/有根/隐根等；
