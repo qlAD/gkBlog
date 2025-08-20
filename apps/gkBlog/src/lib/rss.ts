@@ -4,7 +4,7 @@ import { getSortedPosts } from "./posts";
 
 const generateRSSFeed = () => {
   const feed = new RSS({
-    title: "Liye 的技术笔记", // 你的博客名称
+    title: "Liye的Blog", // 你的博客名称
     description: "一名小小的电商从业者", // 你的博客描述
     feed_url: "https://gkblog.xiaodoudou.vip/rss.xml", // 这里填写你站点的 RSS 链接
     site_url: "https://gkblog.xiaodoudou.vip", // 你的站点首页 URL

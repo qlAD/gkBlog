@@ -10,7 +10,7 @@ function Index() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    name: "qlAD的技术笔记",
+    name: "Liye的Blog",
     description:
       "记录日常学习与开发中的点滴收获。分享编程实践、学习笔记和个人感悟，希望与同行共同进步，一起探索技术世界。",
     url: baseUrl,
@@ -35,8 +35,8 @@ function Index() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <Head
-        title="qlAD的技术笔记"
-        description="qlAD的技术笔记，记录日常学习与开发中的点滴收获。分享编程实践、学习笔记和个人感悟，希望与同行共同进步，一起探索技术世界。"
+        title="Liye的Blog"
+        description="Liye的Blog，记录日常学习与开发中的点滴收获。分享编程实践、学习笔记和个人感悟，希望与同行共同进步，一起探索技术世界。"
         ogImage={`${baseUrl}/assets/images/og-image.png`}
         overrideTitle
       />
