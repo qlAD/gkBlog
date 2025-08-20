@@ -1,6 +1,6 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-  siteUrl: "https://www.qladgk.com",
+  siteUrl: "https://gkblog.xiaodoudou.vip/",
   priority: 0.6,
   generateRobotsTxt: true,
   generateIndexSitemap: false,

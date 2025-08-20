@@ -51,9 +51,9 @@ echo "百度返回: $response_baidu"
 # 提交 URL 到 Bing
 urls=$(cat urls_bing.txt | jq -R . | jq -s .)
 json_payload=$(jq -n \
-    --arg host "www.qladgk.com" \
+    --arg host "gkblog.xiaodoudou.vip/" \
     --arg key "$BING_API_KEY" \
-    --arg keyLocation "https://www.qladgk.com/$BING_API_KEY.txt" \
+    --arg keyLocation "https://gkblog.xiaodoudou.vip/$BING_API_KEY.txt" \
     --argjson urlList "$urls" \
     '{host: $host, key: $key, keyLocation: $keyLocation, urlList: $urlList}')
 

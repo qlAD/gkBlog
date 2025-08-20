@@ -96,7 +96,7 @@ export const getPostStructuredData = ({
       "@type": "Person",
       name: "qlAD",
       jobTitle: "计算机爱好者",
-      url: "https://www.qladgk.com/about-me",
+      url: "https://gkblog.xiaodoudou.vip/about-me",
     },
   ],
 });
