@@ -49,10 +49,10 @@ cat -e filelist.txt
 
 正确的输出应该是这个样子：
 
-```
-file 'video1.mp4'$
-file 'video2.mp4'$
-file 'video3.mp4'$
+```bash
+file 'video1.mp4'
+file 'video2.mp4'
+file 'video3.mp4'
 ```
 
 这里的 `$` 符号代表换行符。如果看到 `^M$`，就说明存在 Windows 风格的换行符（CRLF），需要进行转换。
@@ -107,7 +107,7 @@ for f in *.mp4; do echo "file \"$(printf "%q" "$f")\"" >> filelist.txt; done
 
 通过上述步骤，应该能够解决 `unknown keyword 'file''` 的错误，顺利合并视频。（但是音频部分丢失）
 
-—下述方法音频正常：
+- 下述方法音频正常：
 当使用 FFmpeg 合并 TS 文件后出现音频丢失的问题，通常与流映射、编码器兼容性或合并方法有关。以下是可能的原因及解决方案：
 
 ## **1. 合并方法不正确**
