@@ -46,8 +46,7 @@ function useTwikoo(options?: { envId?: string }) {
     scriptLoadedRef.current = true;
 
     const script = document.createElement("script");
-    script.src =
-      "https://cdn.jsdelivr.net/npm/twikoo@1.6.39/dist/twikoo.min.js";
+    script.src = "/assets/js/twikoo.min.js";
     script.async = true;
 
     script.onload = () => {
