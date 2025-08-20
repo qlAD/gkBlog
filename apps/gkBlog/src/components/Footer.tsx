@@ -132,8 +132,8 @@ function FooterDescription() {
         关于我
       </div>
       <p className={clsx("mb-4 font-normal leading-relaxed")}>
-        我是 qlAD, 一名小小的 <strong>计算机爱好者</strong>{" "}
-        ，致力于探索能改变世界的代码。
+        我是 Liye, 一名小小的 <strong>电商从业者</strong>{" "}
+        ，没技术又爱玩儿那种人。
       </p>
       <ul className={clsx("-ml-2 flex gap-1")}>
         <li>
