@@ -1,0 +1,76 @@
+---
+title: "Python 虚拟环境"
+description: "虚拟环境是隔离的 “独立空间”，可安全安装任何包，避免破坏系统依赖。"
+date: "2025-08-22"
+lang: zh
+tags:
+  - 编程
+  - Python
+category: 技术
+cover: "https://boost.jpgcdn.com/t3.jpgcdn.com/2025/08/22/DTvp.png"
+---
+
+import Image from "@/components/mdx/Image";
+
+<Image
+  src="https://boost.jpgcdn.com/t3.jpgcdn.com/2025/08/22/DTvp.png"
+  alt="Python 虚拟环境"
+  width={999}
+  height={527}
+  isArticleImage={true}
+/>
+
+## python 虚拟环境
+
+### 创建并激活虚拟环境
+
+1. 打开终端，执行以下命令创建虚拟环境（路径可自定义）：
+    
+```bash
+# 在桌面创建一个名为"xianyu_venv"的虚拟环境
+python3 -m venv /Users/zhangliye/Desktop/xianyu_venv
+```
+2. 激活虚拟环境：
+    
+```bash
+# 进入虚拟环境的激活脚本目录
+source /Users/zhangliye/Desktop/xianyu_venv/bin/activate
+```
+激活后，终端提示符前会显示`(xianyu_venv)`，表示已进入虚拟环境。
+    
+
+### 在虚拟环境中安装依赖
+
+在激活的虚拟环境中，使用`pip`安装所需模块（此时`pip`指向虚拟环境的 Python，无权限限制）：
+
+```bash
+# 安装selenium（核心依赖）
+pip install selenium
+
+# 安装pandas（代码中用于导出Excel）
+pip install pandas
+```
+
+### 运行脚本
+
+在虚拟环境中，直接执行脚本（确保路径正确）：
+
+```bash
+python /Users/zhangliye/Desktop/xianyu/xianyu_v6.py
+```
+
+### 退出虚拟环境（可选）
+
+脚本运行结束后，若需退出虚拟环境，执行：
+
+```bash
+deactivate
+```
+
+### 关键说明
+
+- 为什么用虚拟环境？：macOS 通过 PEP 668 限制系统级 Python 包安装，避免破坏系统依赖。虚拟环境是隔离的 “独立空间”，可安全安装任何包。
+- `brew install selenium-server`为何无效？：`selenium-server`是 Selenium 的 Java 服务器版，与 Python 的`selenium`库无关，因此安装后仍提示 “No module named'selenium'”。
+- 后续使用：每次需要运行脚本时，只需先通过`source`命令激活虚拟环境，再执行脚本即可。
+
+按以上步骤操作，既能解决模块缺失问题，又能保证系统环境的稳定性。
