@@ -1,0 +1,43 @@
+---
+title: "Aemulo自定义标签"
+description: "巨魔NFC模拟神器,Aemulo"
+date: "2025-08-22"
+lang: zh
+tags:
+  - IOS
+category: 技术
+cover: "https://boost.jpgcdn.com/e4.jpgcdn.com/2025/08/22/Dvg6.png"
+---
+
+import Image from "@/components/mdx/Image";
+
+<Image
+  src="https://boost.jpgcdn.com/e4.jpgcdn.com/2025/08/22/Dvg6.png"
+  alt="Aemulo自定义标签"
+  width={999}
+  height={527}
+  isArticleImage={true}
+/>
+
+## Aemulo自定义标签
+### 安装 TrollStore  
+👉 官网地址：[https://trollstore.org/](https://trollstore.org/)
+### 通过 TrollStore 安装 Filza 文件管理器  
+👉 下载链接（第三方）：[https://pan.quark.cn/s/40a0dc22dfed#/list/share](https://pan.quark.cn/s/40a0dc22dfed#/list/share)  
+注：目前没有找到官方 Filza 的安装包，可能只能通过这个方式尝试。
+### 打开 Filza
+导航到以下路径：/var/mobile/Containers/Shared/AppGroup/group.amywhile.aemulo/  
+找到并分享 TagDatabase.sqlite3 到你的电脑上（可使用 AirDrop、文件共享等方式）。
+### 打开SQLite 编辑器
+ [https://sqlable.com/sqlite/#](https://sqlable.com/sqlite/#) （网页版 SQLite 编辑器）  
+上传你刚才导出的 sqlite3 文件，进行数据修改。  
+如果你会写 SQL，可以使用如下语句修改某一条记录的标签名：  
+UPDATE "main"."MiFareTagTable" SET "name" = '饭卡' WHERE rowid = 2;
+### 修改完成后，点击保存
+下载生成的数据库文件（通常是 file.sqli），并将其重命名为：  
+TagDatabase.sqlite3
+### 将新文件传回手机
+使用 文件.app 打开，点击分享，用 Filza 打开。
+### 使用 Filza 替换原路径下的文件：  
+/var/mobile/Containers/Shared/AppGroup/group.amywhile.aemulo/TagDatabase.sqlite3  
+替换完成后，重新打开 Aemulo 即可看到修改后的标签名。
