@@ -22,11 +22,11 @@ import Image from "@/components/mdx/Image";
 
 ## 常用NVM命令
 
-### 1. 安装与更新
+### 安装与更新
    - 安装NVM：`curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash`（Linux/Mac）
    - 升级NVM：`nvm install node --reinstall-packages-from=node`
 
-### 2. 版本管理
+### 版本管理
    - 查看可安装的Node.js版本：`nvm ls-remote`
    - 安装指定版本：`nvm install <version>`（如`nvm install 18.17.0`）
    - 安装最新稳定版：`nvm install stable`
@@ -34,13 +34,13 @@ import Image from "@/components/mdx/Image";
    - 切换使用版本：`nvm use <version>`（如`nvm use 16.14.2`）
    - 设置默认版本：`nvm alias default <version>`
 
-### 3. 环境相关
+### 环境相关
    - 查看当前使用版本：`nvm current`
    - 在当前shell中临时使用某版本：`nvm run <version> --version`
    - 卸载指定版本：`nvm uninstall <version>`
    - 查看NVM版本：`nvm --version`
 
-### 4. 项目特定版本
+### 项目特定版本
    - 在项目根目录创建`.nvmrc`文件并写入版本号，运行`nvm use`可自动切换到该版本
 
 这些命令可以满足日常Node.js版本管理的大部分需求，根据实际开发场景选择使用即可。
