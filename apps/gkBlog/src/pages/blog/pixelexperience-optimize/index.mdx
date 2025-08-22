@@ -1,0 +1,334 @@
+---
+title: 安卓类原生系统补全计划 —— PixelExperience（一加 OnePlus）
+description: "PixelExperience 是一个类原生系统，旨在为非 Pixel 设备提供类似 Google Pixel 系列的原生 Android 体验，让用户能够在各种设备上享受到接近原生的流畅和简洁体验。"
+date: "2025-01-08"
+lang: zh
+tags:
+  - 安卓
+  - 软件
+  - 类原生
+category: 技术
+cover: https://cdn.qladgk.com/images/20250508163327679.png
+---
+
+import Image from "@/components/mdx/Image";
+
+<Image
+  src="https://cdn.qladgk.com/images/20250508163327679.png"
+  alt="cover"
+  width={999}
+  height={527}
+  isArticleImage={true}
+/>
+
+> 刷机有风险，玩机需谨慎。
+
+效果预览：
+
+<Image
+  src="https://cdn.qladgk.com/images/20250109010630571.png"
+  alt="预览"
+  width={999}
+  height={527}
+  isArticleImage={true}
+/>
+
+类原生系统种类很多，最有名的恐怕就是 LineageOS 和 PixelExperience 了，选择 PixelExperience 的原因是我的设备（OnePlus 6）刷 LineageOS 后没有人脸解锁。
+
+在阅读之后的内容之前请去 [PixelExperience 的官网](https://get.pixelexperience.org/devices)查看是否支持你的设备。
+
+**_!!!之后的内容只适用于 OnePlus 6 和一加品牌的手机，请自行判断内容正确与否。!!!_**
+
+## 一、刷入 PixelExperience 系统
+
+在这里可查看官网教程：https://wiki.pixelexperience.org/devices/enchilada/install/
+
+### 1、确保当前运行的是原系统
+
+在手机设置中查看当前运行的系统是否是 氧 OS11 或氢 OS11。
+
+如果是则跳过这一步。
+
+如果不是建议使用 9008 模式进行刷机。
+
+从大侠阿木的[百度网盘](https://pan.baidu.com/s/1p4hHpt5w7ljB2mVLY6pBLQ?pwd=dxam)中下载对应的 9008 刷机包。
+
+<Image
+  src="https://cdn.qladgk.com/images/20250108221830654.png"
+  alt="9008 刷机包"
+  width={999}
+  height={527}
+  isArticleImage={true}
+/>
+
+在网络中搜索并下载 Qualcomm_USB_Driver 驱动。可能需要重启电脑，电脑重启之后桌面显示测试模式。
+
+将手机完全关机，然后按下音量加键 5 秒，不要松开音量加键，然后用数据线连接电脑。
+
+手机不会有任何画面显示，如果连接成功会听见电脑的连接提示音并在设备管理器中可看见 9008 端口。
+
+<Image
+  src="https://cdn.qladgk.com/images/20250108223308285.png"
+  alt="9008 端口"
+  width={999}
+  height={527}
+  isArticleImage={true}
+/>
+
+然后打开刷机文件夹中的 MsmDownloadTool 软件。如果显示设备已连接就可以点 start 之后等待就行。
+
+如果点击 start 后提示任何错误或者某一阶段等待太久就是连接问题，需要反复进行以下操作：
+
+> 安装驱动 - 手机进入 9008 模式 - 连接电脑
+
+等待 MsmDownloadTool 软件进程跑完后，手机会自动重启进入氧（氢）OS。
+
+### 2、手机解锁 bootloader
+
+电脑安装 platform-tools 驱动。
+
+进入开发者模式开启 OEM 解锁 与 USB 调试。
+
+使用 adb 命令运行 `adb reboot bootloader` 后回车，手机进入 fastboot 模式。
+
+<Image
+  src="https://cdn.qladgk.com/images/20250108224455280.png"
+  alt="fastboot 模式"
+  width={999}
+  height={527}
+  isArticleImage={true}
+/>
+
+输入 `fastboot oem unlock` 回车，使用音量加减键进行移动选择，解锁 Bootloader。
+
+<Image
+  src="https://cdn.qladgk.com/images/20250108224736845.png"
+  alt="fastboot 模式"
+  width={999}
+  height={527}
+  isArticleImage={true}
+/>
+
+### 3、之后的步骤请阅读官网教程
+
+https://wiki.pixelexperience.org/devices/enchilada/install/#unlocking-the-bootloader
+
+## 二、使用 Magisk 取得 Root 权限
+
+用 Magisk 获取 Root 权限很简单，大致就是以下几步
+
+- 拿到系统的 boot.img
+- 用 Magisk App 修补 boot.img
+- 刷入新的 magisk_patched.img
+
+这里有官方教程：https://topjohnwu.github.io/Magisk/install.html
+
+### 1、获取准备文件（boot.img）
+
+在官网中下载一份内核启动镜像（一般名为 boot.img 或者 recovery.img）
+
+LineageOS 官网：https://download.lineageos.org/devices/
+
+<Image
+  src="https://cdn.qladgk.com/images/20250108225846788.png"
+  alt="启动镜像"
+  width={999}
+  height={527}
+  isArticleImage={true}
+/>
+
+PixelExperience 官网：https://get.pixelexperience.org/devices
+
+<Image
+  src="https://cdn.qladgk.com/images/20250108225655299.png"
+  alt="启动镜像"
+  width={999}
+  height={527}
+  isArticleImage={true}
+/>
+
+去 GitHub 上下载 Magisk APP：https://github.com/topjohnwu/Magisk/releases 并在手机上安装。
+
+<Image
+  src="https://cdn.qladgk.com/images/20250108231442287.png"
+  alt="Magisk APP"
+  width={999}
+  height={527}
+  isArticleImage={true}
+/>
+
+### 2、修补启动镜像文件（patched）
+
+打开 Magisk 后选择 安装 - 选择并修补一个文件 选择刚才下载的 boot.img 或者 recovery.img
+
+修补之后一般会在 Download 文件夹下出现类似 `magisk_patched_[random_strings].img` 的文件
+
+### 3、刷入修补后的镜像（flash）
+
+将这个文件 `magisk_patched_[random_strings].img` 传到电脑上，可以用 adb 命令
+
+```bash
+adb pull /sdcard/Download/magisk_patched_[random_strings].img
+```
+
+然后手机重启进入 fastboot 模式后运行以下命令刷入 Magisk 修补后的内核启动镜像
+
+```bash
+fastboot flash boot /path/to/magisk_patched_[random_strings].img
+```
+
+如果提示错误则可能是 adb pull 的时候没有拉取完整，需要重新拉取。
+
+命令执行完毕后重启手机则可以看见 Magisk 已经有 Root 权限。
+
+## 三、使用 KernelSU 取得 Root（可选）
+
+获取 Root 的方式现阶段有 Magisk 和 KernelSU 这两种主流方式。KernelSU 是内核层面上的 Root 据说有更好的隐藏性。有时候使用 Magisk 后即使将某些软件加入排除列表后依旧会显示设备异常或者账号异常，这个时候可以试试 KernelSU。
+
+> 此内容为可选部分，如果有了 Magisk 的 Root 后建议就不用 kernelSU。如果你看不懂建议不要尝试，不保证每个人都能成功使用 KernelSU，并且有刷机失败的风险。
+
+### 0、检查手机是否为 GKI 内核
+
+如果你是 GKI 内核请参考这篇文章：https://blog.isteed.cc/post/oneplus-13-root-guide/#KernelSU
+
+### 1、为非 GKI 内核设备构建 KernelSU
+
+下载对应内核源码 https://github.com/PixelExperience-Devices/kernel_oneplus_sdm845
+
+使用 kprobe 集成
+
+```bash
+curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -s v0.9.5
+```
+
+内核配置文件 config 中添加以下选项。
+
+```bash
+CONFIG_KPROBES=y
+CONFIG_HAVE_KPROBES=y
+CONFIG_KPROBE_EVENTS=y
+```
+
+重新编译内核和启动镜像并刷入
+
+## 四、优化（美化）你的类原生系统
+
+在安装模块之前，请打开 Zygisk 模式。
+
+### 1、Magisk 模块推荐
+
+| 名称               | 描述                                                               |
+| ------------------ | ------------------------------------------------------------------ |
+| Xposed（LSPosed）  | 允许用户通过安装各种模块来增强和定制 Android 系统功能              |
+| Universal GMS Doze | 优化 Google Play 服务，减少后台活动，提高设备性能和电池续航        |
+| PlayIntegrityFix   | 使设备能够通过 Google play 安全认证                                |
+| Viper4Android      | 优化音频播放效果，提供多种音效预设和高度可定制的设置，提升设备音质 |
+| Iconify            | 更换系统样式，提供丰富的灵活配置，使设备界面个性化                 |
+| QuickSwitch        | 更换系统级动画到自定义启动器上                                     |
+| Uperf              | 动态调整 CPU 和 GPU 性能参数，平衡应用流畅性和功耗，支持自定义配置 |
+
+更多的模块推荐请查看这篇文章：https://ivonblog.com/posts/magisk-recommended-modules/
+
+### 2、使用 Scene 软件调度 CPU
+
+下载安装 Scene 4 免费版并刷入 Uperf 之后，会自动识别 Uperf 的调度配置。（官网下载即可，免费半已经够用）
+
+### 3、美化从桌面开始
+
+使用 Launchair 启动器替换系统自带启动器 https://lawnchair.app/
+
+替换启动器后可能会失去一些系统桌面动画。
+
+不用担心，只用在 QuickSwitch APP 中更改当前桌面启动器即可。
+
+### 4、更换软件图标
+
+酷安上有许多免费的图标包可以选择，我推荐一个叫手绘图标包的软件。
+
+安装图标包后可以在 Launchair 主屏幕设置中切换。
+
+效果如下：
+
+<Image
+  src="https://cdn.qladgk.com/images/20250109010006441.png"
+  alt="图标"
+  width={199}
+  height={527}
+  isArticleImage={true}
+/>
+
+### 5、来给你的通知栏加上美少女吧
+
+效果预览：
+
+<Image
+  src="https://cdn.qladgk.com/images/20250108234750717.gif"
+  alt="Magisk APP"
+  width={199}
+  height={527}
+  isArticleImage={true}
+/>
+
+请看酷安原文教程：https://www.coolapk.com/feed/51793162?shareKey=M2IzYjNiMGFkZjYyNjZkODdhNjE~&shareUid=25082944&shareFrom=com.coolapk.market_14.5
+
+### 6、类原生也能用上景深壁纸
+
+还是 Iconify 这个软件，景深壁纸的原理就是：
+
+> 一张图片，然后抠出里面的内容，将未抠图作为背景，将已抠图作为前景。然后锁屏部件会夹在两张图片中间来实现景深的效果。
+
+详细可见 B 站教程，其中抠图可以用市面上在线 AI 抠图网站制作。
+
+<iframe
+  src="//player.bilibili.com/player.html?isOutside=true&aid=113338616913667&bvid=BV17Fy8YhEMn&cid=26377129964&p=1"
+  scrolling="no"
+  border="0"
+  frameborder="no"
+  framespacing="0"
+  allowfullscreen="true"
+  style={{ margin: "20px" }}
+/>
+
+### 7、不准备换一个二次元字体吗？
+
+类原生换字体很简单，只用替换字体文件即可。为了方便，可以手动做一个 magisk 模块刷入来达到替换的效果（别怕，你会复制粘贴就行）。
+
+下载好你准备替换的字体文件（ttf）
+
+使用这个项目模板来打包制作你的 magisk 模块：https://github.com/lxgw/simple-cjk-font-magisk-module-template
+
+有的时候可能你下载到的字体只有单字重，导致系统中可能会出现某些数字、小体字还是原系统字体的样式。
+
+可以使用下面的组件测试不通的字体自重。
+
+import VariableFontTester from "./VariableFontTester";
+
+<VariableFontTester />
+
+## 五、好用 App 推荐
+
+### 1、工具类（天气、计算器等）
+
+微风天气：https://github.com/breezy-weather/breezy-weather
+
+小米计算器：https://play.google.com/store/apps/details?id=com.miui.calculator&hl=zh
+
+F-Droid：https://f-droid.org/
+
+MT 管理器：https://mt2.cn/
+
+Scene：http://www.vtools.online/#/
+
+Google 相机：自行查找对应版本
+
+### 2、娱乐类（社交、影音等）
+
+Telegram：https://telegram.org/
+
+AntennaPod：https://antennapod.org/
+
+Mastodon：https://mastodon.social/
+
+## 六、放弃类原生，回归氧 OS
+
+刷机 Root 已成过去式，许多类原生系统已接连放弃开发，包括 PixelExperience 在今年也宣布停止开发。如果想让手机养老，我觉得还是氧 OS 更好。
