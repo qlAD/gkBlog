@@ -1,0 +1,82 @@
+---
+title: "开源 Windows 和 Office 激活器"
+description: "开源 Windows 和 Office 激活器，具有 HWID、Ohook、TSforge、KMS38 和在线 KMS 激活方法，以及高级故障排除功能。"
+date: "2025-09-02"
+lang: zh
+tags:
+  - 软件
+  - 技术
+category: 技术
+cover: "https://boost.jpgcdn.com/c2.jpgcdn.com/2025/09/02/Wibm.png"
+---
+
+import Image from "@/components/mdx/Image";
+
+<Image
+  src="https://boost.jpgcdn.com/c2.jpgcdn.com/2025/09/02/Wibm.png"
+  alt="开源 Windows 和 Office 激活器"
+  width={999}
+  height={527}
+  isArticleImage={true}
+/>
+
+开源 Windows 和 Office 激活器
+Microsoft 激活脚本 （MAS）
+开源 Windows 和 Office 激活器，具有 HWID、Ohook、TSforge、KMS38 和在线 KMS 激活方法，以及高级故障排除功能。
+
+## 如何激活 Windows / Office / 扩展更新 （ESU）？
+
+### 方法 1 - PowerShell ❤️
+
+1. 打开 PowerShell
+   单击“开始”菜单，键入 ，然后将其打开。PowerShell
+
+2. 复制并粘贴下面的代码，然后按 Enter。
+
+对于 Windows 8、10、11： 📌
+
+```bash
+irm https://get.activated.win | iex
+```
+
+对于 Windows 7 及更高版本：
+
+```bash
+iex ((New-Object Net.WebClient).DownloadString('https://get.activated.win'))
+```
+
+脚本未启动❓单击此处获取信息。
+如果上述内容被 ISP/DNS 阻止，请尝试以下作（需要更新 Windows 10 或 11）：
+
+```bash
+iex (curl.exe -s --doh-url https://1.1.1.1/dns-query https://get.activated.win | Out-String)
+```
+
+如果失败或您使用的是较旧的 Windows，请使用下面列出的方法 2。
+将出现激活菜单。选择绿色突出显示的选项以激活 Windows 或 Office。
+
+### 方法 2 - 传统（Windows Vista 及更高版本）
+
+使用以下链接之一下载文件：
+https://github.com/massgravel/Microsoft-Activation-Scripts/archive/refs/heads/master.zip
+https://git.activated.win/massgrave/Microsoft-Activation-Scripts/archive/master.zip
+
+下载 zip 文件并将其解压。
+在解压的文件夹中，找到名为 的文件夹。All-In-One-Version
+运行名为 的文件。MAS_AIO.cmd
+您将看到激活选项。按照屏幕上的说明进行操作。
+
+## 某些 ISP/DNS 会阻止访问我们的域名。您可以通过在浏览器中启用 DNS-over-HTTPS （DoH） 来绕过此问题。
+
+遇到问题❓访问我们的故障排除页面或在 GitHub 上提出问题。
+若要激活其他产品，例如 Office for macOS、Visual Studio、RDS CAL 和 Windows XP，请查看此处。
+要在无人值守模式下运行脚本，请检查此处。
+
+PowerShell 中的 IRM 命令从指定的 URL 下载脚本，IEX 命令执行它。
+在执行命令之前，请务必仔细检查 URL，如果手动下载文件，请验证来源。
+请小心，因为有些人通过在 IRM 命令中使用不同的 URL 来传播伪装成 MAS 的恶意软件。
+Latest Version: 3.5
+Release date: 10-Aug-2025
+故障排除/帮助
+下载原始 Windows 和 Office
+首页 - https://massgrave.dev/
