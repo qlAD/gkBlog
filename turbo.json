@@ -3,30 +3,42 @@
   "globalEnv": [
     "NEXT_PUBLIC_VERCEL_ENV",
     "NEXT_PUBLIC_VERCEL_URL",
-    "DATABASE_URL",
+    "DATABASE_URL", // 全局声明：所有任务可访问
     "SALT_IP_ADDRESS"
+  ],
+  "globalDependencies": [
+    "apps/enji.dev/.env.local" // 监控本地 .env.local 变更，确保缓存失效
   ],
   "tasks": {
     "build": {
       "dependsOn": ["db:generate", "^build"],
-      "outputs": ["dist/**", ".next/**"]
+      "outputs": ["dist/**", ".next/**"],
+      // 显式声明当前任务需要的变量（与 globalEnv 重复也没关系，更保险）
+      "env": ["DATABASE_URL", "SALT_IP_ADDRESS"]
+    },
+    "lint": {
+      "outputs": []
+    },
+    "dev": {
+      "dependsOn": ["db:generate"],
+      "cache": false,
+      "env": ["DATABASE_URL", "SALT_IP_ADDRESS"] // 开发环境也需要变量
     },
     "clean": {
       "cache": false
     },
     "db:generate": {
-      "cache": false
-    },
-    "dev": {
       "cache": false,
-      "dependsOn": ["db:generate"]
+      "env": ["DATABASE_URL"] // Prisma 生成必须的变量（核心！）
     },
-    "lint": {
-      "outputs": []
+    // 关键：为 packages 下的任务声明变量（日志中警告的 remark-plugins 和 rehype-plugins）
+    "remark-plugins#build": {
+      "outputs": ["dist/**"],
+      "env": ["DATABASE_URL", "SALT_IP_ADDRESS"]
     },
-    "start": {
-      "cache": false,
-      "dependsOn": ["^build"]
+    "rehype-plugins#build": {
+      "outputs": ["dist/**"],
+      "env": ["DATABASE_URL", "SALT_IP_ADDRESS"]
     }
   }
 }
