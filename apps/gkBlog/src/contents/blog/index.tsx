@@ -6,7 +6,7 @@ import Sidebar from "@/components/sidebar/Sidebar";
 
 import useContentMeta from "@/hooks/useContentMeta";
 
-import PostPreview from "@/contents/blog/PostPreview";
+import PostPreview from "@/contents/blog/PostPreview"; // 确保这个导入的 PostPreview 是你修改过的版本
 
 import type { TPostFrontMatter } from "@/types";
 
@@ -20,11 +20,12 @@ export type BlogContentsProps = {
   }>;
 };
 
+// 1. 从 TPostPreview 类型定义中移除 cover?: string;
 type TPostPreview = TPostFrontMatter & {
   slug: string;
   shares: number;
   views: number;
-  cover?: string;
+  // cover?: string; // Removed
 };
 
 function BlogContents({ posts }: BlogContentsProps) {
@@ -32,7 +33,7 @@ function BlogContents({ posts }: BlogContentsProps) {
   const router = useRouter();
   const [currentPage, setCurrentPage] = useState(1);
 
-  let pinnedPost: TPostPreview;
+  let pinnedPost: TPostPreview | undefined; // 明确类型可能为 undefined
   const postsPreview: Array<TPostPreview> = [];
 
   posts.forEach(({ slug, frontMatter }) => {
@@ -44,6 +45,7 @@ function BlogContents({ posts }: BlogContentsProps) {
       views,
       shares,
       ...frontMatter,
+      // 2. 不再从 frontMatter 中提取 cover (如果它存在的话，也不会被传递)
     };
 
     if (slug === PINNED_POST) {
@@ -151,6 +153,7 @@ function BlogContents({ posts }: BlogContentsProps) {
               )}
             >
               <div className={clsx("flex-1")}>
+                {/* 3. 从 pinnedPost 的 PostPreview 中移除 cover prop */}
                 <PostPreview
                   pinned
                   slug={pinnedPost.slug}
@@ -162,12 +165,13 @@ function BlogContents({ posts }: BlogContentsProps) {
                   tags={pinnedPost.tags}
                   views={pinnedPost.views}
                   shares={pinnedPost.shares}
-                  cover={pinnedPost.cover}
+                  // cover={pinnedPost.cover} // Removed
                 />
               </div>
             </div>
           )}
 
+          {/* 4. 从 currentPosts.map 中的 PostPreview 移除 cover prop */}
           {currentPosts.map(
             ({
               slug,
@@ -179,7 +183,7 @@ function BlogContents({ posts }: BlogContentsProps) {
               tags,
               views,
               shares,
-              cover,
+              // cover, // Destructured but not used, can be removed or commented out
             }) => (
               <div
                 key={slug}
@@ -199,7 +203,7 @@ function BlogContents({ posts }: BlogContentsProps) {
                     tags={tags}
                     views={views}
                     shares={shares}
-                    cover={cover}
+                    // cover={cover} // Removed
                   />
                 </div>
               </div>
