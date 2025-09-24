@@ -1,5 +1,5 @@
 # 使用 Node.js 18 的 Debian slim 版本作为基础镜像
-FROM node:18-slim AS base
+FROM node:22-slim AS base
 
 # 安装必要的系统依赖
 RUN apt-get update && \
