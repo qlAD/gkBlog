@@ -1,3 +1,42 @@
+dist
+
+# dependencies
 node_modules
-# Keep environment variables out of version control
+.pnp
+.pnp.js
+
+# testing
+coverage
+
+# next.js
+.next/
+out/
+build
+.swc/
+
+# misc
+.DS_Store
+*.pem
+*.tsbuildinfo
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# local env files
 .env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# turbo
+.turbo
+
+# next-sitemap
+robots.txt
+sitemap.xml
+
+# prevent accidentally committing and pushing draft files/directories
+*((DRAFT))*

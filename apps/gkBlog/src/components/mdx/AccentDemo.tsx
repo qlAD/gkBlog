@@ -12,19 +12,16 @@ function AccentDemo() {
     "default",
   ] as const;
 
-  const [accent, setAccent] = useState<(typeof accents)[number] | null>(null);
-
-  useEffect(() => {
-    const initialAccent = "default";
-    setAccent(initialAccent);
-    document.documentElement.setAttribute("data-accent", initialAccent);
-  }, []);
+  const [accent, setAccent] = useState<(typeof accents)[number]>("violet");
 
   const handleClick = () => {
-    if (accent === null) return;
-    const newAccent = accents[(accents.indexOf(accent) + 1) % accents.length];
-    setAccent(newAccent);
+    const newAccent = accents[accents.indexOf(accent) + 1] || accents[0];
+
+    // change the html data-accent
     document.documentElement.setAttribute("data-accent", newAccent);
+
+    // set new active accent
+    setAccent(newAccent);
   };
 
   const getButtonText = (color: (typeof accents)[number]): string => {
@@ -33,16 +30,16 @@ function AccentDemo() {
         return `你觉得紫色怎么样？🤔`;
       case "red":
         return `红色怎么样？😡`;
-      case "amber":
-        return `琥珀色很好哦 🤩`;
+      case "blue":
+        return `蓝色很好 🤩`;
       case "orange":
-        return `你喜欢橙色吗？🍊`;
+        return `你是认真的么？ 👀`;
       case "green":
-        return `啊，绿色，不错的选择！😁`;
+        return `啊 绿色, 不错的选择 😁`;
       case "pink":
-        return `粉色！🌸`;
+        return `好吧，带我回到紫色！ 😭`;
       default:
-        return `✦ 想要换个颜色吗？✦`;
+        return `✦ 想要换个颜色吗？✦ `;
     }
   };
 
