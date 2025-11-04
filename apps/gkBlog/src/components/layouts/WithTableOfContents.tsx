@@ -3,17 +3,24 @@ import clsx from "clsx";
 import Sidebar from "@/components/sidebar/Sidebar";
 import TableOfContents from "@/components/TableOfContents";
 import TwikooComments from "@/components/TwikooComments";
+import SeriesNavigation from "@/components/SeriesNavigation";
 
-import type { TTableOfContents } from "@/types";
+import type { TTableOfContents, TPostFrontMatter } from "@/types";
 import type { PropsWithChildren } from "react";
 
 interface PageWithMDXProps {
   tableOfContents: TTableOfContents;
+  series?: string;
+  seriesPosts?: { slug: string; frontMatter: TPostFrontMatter }[];
+  currentSlug?: string;
 }
 
 function PageWithMDX({
   tableOfContents,
   children = null,
+  series,
+  seriesPosts,
+  currentSlug,
 }: PropsWithChildren<PageWithMDXProps>) {
   return (
     <div
@@ -56,6 +63,15 @@ function PageWithMDX({
               "fm:relative fm:top-0",
             )}
           >
+            {/* 系列导航 */}
+            {series && seriesPosts && currentSlug && (
+              <SeriesNavigation
+                series={series}
+                posts={seriesPosts}
+                currentSlug={currentSlug}
+              />
+            )}
+            
             <TableOfContents items={tableOfContents} />
             <div className={clsx("my-6")} />
             <Sidebar

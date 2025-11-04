@@ -66,3 +66,33 @@ export const getPostsByTag = (tag: string) => {
   const posts = getSortedPosts();
   return posts.filter((post) => post.frontMatter.tags?.includes(tag));
 };
+
+// 获取所有系列
+export const getAllSeries = () => {
+  const posts = getSortedPosts();
+  const seriesMap = new Map<string, number>();
+
+  posts.forEach((post) => {
+    const { series } = post.frontMatter;
+    if (series) {
+      seriesMap.set(series, (seriesMap.get(series) || 0) + 1);
+    }
+  });
+
+  return Array.from(seriesMap.entries()).map(([name, count]) => ({
+    name,
+    count,
+  }));
+};
+
+// 根据系列获取文章
+export const getPostsBySeries = (series: string) => {
+  const posts = getSortedPosts();
+  return posts
+    .filter((post) => post.frontMatter.series === series)
+    .sort((a, b) => {
+      const orderA = a.frontMatter.seriesOrder || 0;
+      const orderB = b.frontMatter.seriesOrder || 0;
+      return orderA - orderB;
+    });
+};

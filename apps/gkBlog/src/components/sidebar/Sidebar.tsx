@@ -31,6 +31,8 @@ function Sidebar({ show }: SidebarProps) {
   const [visibleTags, setVisibleTags] = useState<string[]>([]);
   const [showMore, setShowMore] = useState(false);
   const [visibleCategories, setVisibleCategories] = useState<string[]>([]);
+  const [seriesWithCount, setSeriesWithCount] = useState<Record<string, number>>({});
+  const [visibleSeries, setVisibleSeries] = useState<string[]>([]);
 
   const { recentComments, fetchRecentComments, twikooLoaded } = useTwikoo();
 
@@ -84,6 +86,21 @@ function Sidebar({ show }: SidebarProps) {
 
   useEffect(() => {
     fetchCategories();
+  }, []);
+
+  const fetchSeries = async () => {
+    const response = await fetch("/api/series");
+    const data = await response.json();
+    
+    // 对系列按数量排序
+    const sortedSeries = data.sort((a: { count: number }, b: { count: number }) => b.count - a.count);
+    
+    setSeriesWithCount(Object.fromEntries(data.map((series: { name: string; count: number }) => [series.name, series.count])));
+    setVisibleSeries(sortedSeries.slice(0, 15).map((series: { name: string }) => series.name));
+  };
+
+  useEffect(() => {
+    fetchSeries();
   }, []);
 
   const handleShowMore = () => {
@@ -260,6 +277,44 @@ function Sidebar({ show }: SidebarProps) {
               </li>
             ))}
           </ul>
+        </Card>
+      )}
+
+      {show.includes("series") && (
+        <Card title="系列文章" className="hidden md:block">
+          <div className="relative overflow-hidden">
+            <div className="flex flex-wrap space-x-4">
+              {visibleSeries.map((series) => (
+                <span
+                  key={series}
+                  className="relative rounded-md px-2 py-1 text-blue-500 hover:bg-slate-300/50 dark:hover:bg-slate-600/50"
+                >
+                  <a href={`/blog/series/${series}`}>{series}</a>
+                  <sup className="absolute -top-0 -right-2 text-xs text-gray-400">
+                    {seriesWithCount[series]}
+                  </sup>
+                </span>
+              ))}
+            </div>
+
+            {!showMore &&
+              visibleSeries.length < Object.keys(seriesWithCount).length && (
+                <div className="relative -mt-8 flex justify-center">
+                  <div className="pointer-events-none absolute bottom-5 left-0 right-0 h-12 bg-gradient-to-b from-transparent to-white dark:to-[#161e31]" />
+                  <button
+                    type="button"
+                    onClick={handleShowMore}
+                    className={clsx(
+                      "z-10 w-full max-w-[90%] rounded-lg bg-slate-200 p-1.5 text-slate-800",
+                      "hover:bg-slate-300 sm:ml-0",
+                      "dark:bg-slate-800 dark:text-slate-100 dark:hover:bg-slate-700"
+                    )}
+                  >
+                    查看全部
+                  </button>
+                </div>
+              )}
+          </div>
         </Card>
       )}
 

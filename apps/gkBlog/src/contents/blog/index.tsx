@@ -133,6 +133,7 @@ function BlogContents({ posts }: BlogContentsProps) {
               show={[
                 "tags",
                 "categories",
+                "series",
                 "recentArticles",
                 "recentComments",
                 "publicAccount",
