@@ -5,6 +5,7 @@ import WithTableOfContents from "@/components/layouts/WithTableOfContents";
 import Head from "@/components/meta/Head";
 import SkipNavigation from "@/components/navigations/SkipNavigation";
 import PageHeader from "@/components/PageHeader";
+import ReadingProgressBar from "@/components/ReadingProgressBar";
 import SeriesNavigation from "@/components/SeriesNavigation";
 
 import { getPostOgImageUrl, getPostStructuredData } from "@/helpers/post";
@@ -52,6 +53,7 @@ function Post({
 
   return (
     <>
+      <ReadingProgressBar />
       <Head
         title={title}
         description={description}
