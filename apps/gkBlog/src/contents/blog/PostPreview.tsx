@@ -28,7 +28,7 @@ function PostPreview({
   shares,
   pinned = false,
   cover,
-  series,
+  series = undefined,
 }: PostPreviewProps) {
   return (
     <article lang={lang}>
