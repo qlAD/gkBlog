@@ -108,7 +108,7 @@ function BlogContents({ posts }: BlogContentsProps) {
             }}
           >
             {i}
-          </button>
+          </button>,
         );
       } else if (
         buttons[buttons.length - 1]?.key !== "..." &&
@@ -147,7 +147,7 @@ function BlogContents({ posts }: BlogContentsProps) {
             <div
               className={clsx(
                 "mb-8 flex items-start gap-4",
-                "md:mb-12 md:gap-6"
+                "md:mb-12 md:gap-6",
               )}
             >
               <div className={clsx("flex-1")}>
@@ -163,6 +163,7 @@ function BlogContents({ posts }: BlogContentsProps) {
                   views={pinnedPost.views}
                   shares={pinnedPost.shares}
                   cover={pinnedPost.cover}
+                  series={pinnedPost.series}
                 />
               </div>
             </div>
@@ -180,12 +181,13 @@ function BlogContents({ posts }: BlogContentsProps) {
               views,
               shares,
               cover,
+              series,
             }) => (
               <div
                 key={slug}
                 className={clsx(
                   "mb-8 flex items-start gap-4",
-                  "md:mb-4 md:gap-6"
+                  "md:mb-4 md:gap-6",
                 )}
               >
                 <div className={clsx("flex-1")}>
@@ -200,10 +202,11 @@ function BlogContents({ posts }: BlogContentsProps) {
                     views={views}
                     shares={shares}
                     cover={cover}
+                    series={series}
                   />
                 </div>
               </div>
-            )
+            ),
           )}
         </div>
       </div>

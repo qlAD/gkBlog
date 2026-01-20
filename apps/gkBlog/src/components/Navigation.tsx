@@ -28,7 +28,7 @@ function Navbar() {
       { title: "相册集", href: "/album" },
       { title: "书影音", href: "/media" },
     ],
-    []
+    [],
   );
   const moreLinks = useMemo(
     () => [
@@ -36,7 +36,7 @@ function Navbar() {
       { title: "友情链接", href: "/links" },
       { title: "留言反馈", href: "/feedback" },
     ],
-    []
+    [],
   );
 
   const [isSmallScreen, setIsSmallScreen] = useState(false);
@@ -54,7 +54,7 @@ function Navbar() {
 
   const combinedMoreLinks = useMemo(
     () => (isSmallScreen ? [...myLinks, ...moreLinks] : moreLinks),
-    [myLinks, moreLinks, isSmallScreen]
+    [myLinks, moreLinks, isSmallScreen],
   );
 
   return (
@@ -70,7 +70,7 @@ function Navbar() {
               "dark:border-divider-dark dark:bg-slate-900/80",
             ],
           ],
-          "fm:hidden"
+          "fm:hidden",
         )}
       />
       <div className={clsx("h-2", [isScrolled === true && ["-mt-2"]])} />
@@ -78,7 +78,7 @@ function Navbar() {
         <div
           className={clsx(
             "relative z-50 flex h-16 items-center justify-between px-2 text-sm",
-            "md:px-4"
+            "md:px-4",
           )}
         >
           {/* 左侧 LOGO */}
@@ -93,6 +93,13 @@ function Navbar() {
                 <NavLink
                   title="博客"
                   href="/blog"
+                  onClick={() => playClickSound()}
+                />
+              </li>
+              <li>
+                <NavLink
+                  title="系列"
+                  href="/series"
                   onClick={() => playClickSound()}
                 />
               </li>
@@ -144,7 +151,7 @@ function Navbar() {
               <div
                 className={clsx(
                   "ml-2 mr-4 h-3 w-[1px] bg-slate-200",
-                  "dark:bg-slate-700"
+                  "dark:bg-slate-700",
                 )}
               />
             </li>

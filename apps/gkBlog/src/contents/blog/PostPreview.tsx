@@ -15,6 +15,7 @@ type PostPreviewProps = TPostFrontMatter & {
   shares: number;
   pinned?: boolean;
   cover: string;
+  series?: string;
 };
 
 function PostPreview({
@@ -27,6 +28,7 @@ function PostPreview({
   shares,
   pinned = false,
   cover,
+  series,
 }: PostPreviewProps) {
   return (
     <article lang={lang}>
@@ -42,7 +44,7 @@ function PostPreview({
                 "sm:border sm:p-4 md:p-6",
                 "dark:border-divider-dark",
               ]
-            : ["sm:p-4 md:p-6"]
+            : ["sm:p-4 md:p-6"],
         )}
       >
         {/* 大屏幕下 hover 显示封面图 */}
@@ -64,7 +66,7 @@ function PostPreview({
             className={clsx(
               "relative mb-4 flex items-center gap-2 font-semibold text-slate-500",
               "sm:text-slate-500",
-              "dark:sm:text-accent-400 dark:text-slate-400"
+              "dark:sm:text-accent-400 dark:text-slate-400",
             )}
           >
             <PinIcon className={clsx("h-5 w-5")} />
@@ -74,15 +76,29 @@ function PostPreview({
         <div
           className={clsx(
             "text-slate mb-2 flex flex-col gap-2 text-xs text-slate-500",
-            "dark:text-slate-400 md:mb-1"
+            "dark:text-slate-400 md:mb-1",
           )}
         >
-          <div className={clsx("flex gap-1")}>
+          <div className={clsx("flex items-center gap-1")}>
             <time dateTime={date} className={clsx("first-letter:uppercase")}>
               {formatDateRelative(date)}
             </time>
             <span>&middot;</span>
             <span>{formatLang(lang)}</span>
+            {series && (
+              <>
+                <span>&middot;</span>
+                <span
+                  className={clsx(
+                    "inline-flex items-center rounded-full px-2 py-0.5",
+                    "bg-accent-100 text-accent-700",
+                    "dark:bg-accent-900/50 dark:text-accent-300",
+                  )}
+                >
+                  {series}
+                </span>
+              </>
+            )}
           </div>
         </div>
 
@@ -106,7 +122,7 @@ function PostPreview({
               "dark:text-slate-300",
               "transition-all duration-500 ease-in-out w-full",
               "sm:group-hover:w-2/3 sm:group-hover:pr-4",
-              "line-clamp-1"
+              "line-clamp-1",
             )}
             style={{
               display: "-webkit-box",
@@ -125,7 +141,7 @@ function PostPreview({
               "sm:group-hover:text-slate-700 dark:sm:group-hover:text-slate-300",
               "transition-all duration-500 ease-in-out w-full",
               "sm:group-hover:w-2/3 sm:group-hover:pr-4",
-              "line-clamp-2"
+              "line-clamp-2",
             )}
             style={{
               display: "-webkit-box",
@@ -141,7 +157,7 @@ function PostPreview({
             "flex items-center gap-2 text-xs text-slate-600",
             "dark:text-slate-400",
             "transition-all duration-500 ease-in-out w-full group-hover:w-2/3",
-            pinned ? ["mb-4", "sm:mb-1"] : "mb-4"
+            pinned ? ["mb-4", "sm:mb-1"] : "mb-4",
           )}
         >
           <InsightIcon className={clsx("-mt-0.5 h-4 w-4")} />
@@ -167,7 +183,7 @@ function PostPreview({
               "text-accent-600 items-center gap-1 text-sm font-semibold",
               "dark:text-accent-400",
               "transition-all duration-500 ease-in-out group-hover:w-2/3",
-              "sm:flex hidden"
+              "sm:flex hidden",
             )}
           >
             阅读更多

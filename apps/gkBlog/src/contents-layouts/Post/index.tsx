@@ -5,6 +5,7 @@ import WithTableOfContents from "@/components/layouts/WithTableOfContents";
 import Head from "@/components/meta/Head";
 import SkipNavigation from "@/components/navigations/SkipNavigation";
 import PageHeader from "@/components/PageHeader";
+import SeriesNavigation from "@/components/SeriesNavigation";
 
 import { getPostOgImageUrl, getPostStructuredData } from "@/helpers/post";
 
@@ -13,14 +14,25 @@ import PostMeta from "@/contents-layouts/Post/PostMeta";
 
 import type { TPostFrontMatter, TTableOfContents } from "@/types";
 
+type SeriesNavigationData = {
+  seriesTitle: string;
+  seriesSlug: string;
+  currentIndex: number;
+  totalCount: number;
+  prevPost: { slug: string; title: string } | null;
+  nextPost: { slug: string; title: string } | null;
+};
+
 interface PostProps {
   frontMatter: TPostFrontMatter;
   tableOfContents: TTableOfContents;
+  seriesNavigation?: SeriesNavigationData | null;
 }
 
 function Post({
   frontMatter: { title, description, caption, category, date, lang, tags },
   tableOfContents,
+  seriesNavigation = null,
   children = null,
 }: PropsWithChildren<PostProps>) {
   const postOgImages = getPostOgImageUrl({
@@ -45,7 +57,6 @@ function Post({
         description={description}
         ogImage={postOgImages.default}
       />
-      {/* JSON-LD 结构化数据 */}
       <script
         type="application/ld+json"
         // eslint-disable-next-line react/no-danger
@@ -55,6 +66,16 @@ function Post({
       <PageHeader title={title} description={description} caption={caption} />
       <PostMeta date={date} lang={lang} />
       <WithTableOfContents tableOfContents={tableOfContents}>
+        {seriesNavigation && (
+          <SeriesNavigation
+            seriesTitle={seriesNavigation.seriesTitle}
+            seriesSlug={seriesNavigation.seriesSlug}
+            currentIndex={seriesNavigation.currentIndex}
+            totalCount={seriesNavigation.totalCount}
+            prevPost={seriesNavigation.prevPost}
+            nextPost={seriesNavigation.nextPost}
+          />
+        )}
         {children}
         <PostFooter tags={tags} category={category} />
       </WithTableOfContents>

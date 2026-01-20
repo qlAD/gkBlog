@@ -16,6 +16,8 @@ const PostFrontMatter = z.object({
   lang: z.enum(["zh", "en"]),
   tags: z.array(z.string()).min(2).max(5),
   category: z.string(),
+  series: z.string().optional(),
+  seriesOrder: z.number().optional(),
 });
 
 const ProjectFrontMatter = z.object({
