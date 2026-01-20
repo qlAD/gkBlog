@@ -60,6 +60,15 @@ export const getAllSeries = (): TSeries[] => {
   });
 
   return seriesList.sort((a, b) => {
+    const configA = getSeriesConfigByTitle(a.title);
+    const configB = getSeriesConfigByTitle(b.title);
+    const orderA = configA?.order ?? 999;
+    const orderB = configB?.order ?? 999;
+
+    if (orderA !== orderB) {
+      return orderA - orderB;
+    }
+
     const dateA = a.posts[0]?.frontMatter.date || "";
     const dateB = b.posts[0]?.frontMatter.date || "";
     return dateB.localeCompare(dateA);

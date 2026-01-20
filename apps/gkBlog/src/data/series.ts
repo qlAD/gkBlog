@@ -27,16 +27,24 @@ export type TSeriesConfig = {
  * 则使用此处的配置覆盖自动生成的信息
  */
 export const seriesConfigs: TSeriesConfig[] = [
-  // 示例配置：
-  // {
-  //   slug: 'nextjs-blog-guide',
-  //   title: 'Next.js 博客搭建指南',
-  //   description: '从零开始搭建一个现代化的 Next.js 博客',
-  //   cover: 'https://cdn.example.com/series/nextjs-blog.png',
-  //   color: 'blue',
-  //   showInNav: true,
-  //   order: 1,
-  // },
+  {
+    slug: "college-life",
+    title: "大学生活记录",
+    description:
+      "记录我在 DNUI 的大学四年时光，从入学第一天到毕业，用文字留住青春的点滴。",
+    cover: "https://cdn.qladgk.com/images/20250907193406818.png",
+    showInNav: true,
+    order: 1,
+  },
+  {
+    slug: "python-beginner",
+    title: "Python 初级",
+    description:
+      "Python 入门系列教程，从零开始学习 Python 编程，涵盖基础语法、数据类型、控制结构、函数与模块等核心知识。",
+    cover: "https://cdn.qladgk.com/images/20260120153638828.jpg",
+    showInNav: true,
+    order: 2,
+  },
 ];
 
 /**
@@ -44,24 +52,21 @@ export const seriesConfigs: TSeriesConfig[] = [
  */
 export const getSeriesConfigByTitle = (
   title: string,
-): TSeriesConfig | undefined => {
-  return seriesConfigs.find(
+): TSeriesConfig | undefined =>
+  seriesConfigs.find(
     (config) => config.title.toLowerCase() === title.toLowerCase(),
   );
-};
 
 /**
  * 根据 slug 获取配置
  */
 export const getSeriesConfigBySlug = (
   slug: string,
-): TSeriesConfig | undefined => {
-  return seriesConfigs.find((config) => config.slug === slug);
-};
+): TSeriesConfig | undefined =>
+  seriesConfigs.find((config) => config.slug === slug);
 
 /**
  * 获取所有配置的系列
  */
-export const getAllSeriesConfigs = (): TSeriesConfig[] => {
-  return seriesConfigs.sort((a, b) => (a.order ?? 999) - (b.order ?? 999));
-};
+export const getAllSeriesConfigs = (): TSeriesConfig[] =>
+  seriesConfigs.sort((a, b) => (a.order ?? 999) - (b.order ?? 999));
