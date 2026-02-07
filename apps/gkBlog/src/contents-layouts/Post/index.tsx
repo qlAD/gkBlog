@@ -79,6 +79,16 @@ function Post({
           />
         )}
         {children}
+        {seriesNavigation && (
+          <SeriesNavigation
+            seriesTitle={seriesNavigation.seriesTitle}
+            seriesSlug={seriesNavigation.seriesSlug}
+            currentIndex={seriesNavigation.currentIndex}
+            totalCount={seriesNavigation.totalCount}
+            prevPost={seriesNavigation.prevPost}
+            nextPost={seriesNavigation.nextPost}
+          />
+        )}
         <PostFooter tags={tags} category={category} />
       </WithTableOfContents>
       <WithReactions contentTitle={title} contentType="POST" />
