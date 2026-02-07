@@ -1,0 +1,919 @@
+---
+title: 手把手带你实现单/双链表（C/C++ 数据结构）
+description: 数据结构的本质是数组和链表，链表常见的有单链表和双链表，本文将手把手带你实现单链表和双链表，并且介绍 STL 中 list 的使用。
+date: "2026-02-08"
+lang: zh
+tags:
+  - 数据结构
+  - 数组
+  - C/C++
+category: 技术笔记
+cover: https://cdn.qladgk.com/images/20260207160936936.png
+series: 数据结构笔记
+seriesOrder: 2
+---
+
+import Image from "@/components/mdx/Image";
+
+<Image
+  src="https://cdn.qladgk.com/images/20260207160936936.png"
+  alt="cover"
+  width={999}
+  height={527}
+  isArticleImage={true}
+/>
+
+## 一、链表
+
+### 1、单链表
+
+链表由一系列**节点**组成，每个节点包含**数据和指向下一个节点的指针**。
+
+请欣赏我的灵魂手绘图：
+
+<Image
+  src="https://cdn.qladgk.com/images/20260207161949068.png"
+  alt="火车"
+  width={666}
+  height={527}
+  isArticleImage={true}
+/>
+
+就如你所看见的一样，链表就像一列火车（list），每节车厢（node）装着货物（data）而且带着一个钩子（pointer）准备连接下一节车厢（next）。
+
+并且一列火车的第一节车厢有点特殊，它这样设计是为了方便人们找到火车头（head）。火车的最后一节车厢也有点特殊，它的钩子没有连接（nullptr），表示火车的结束。
+
+### 2、双链表
+
+在实际开发中，我们经常需要在链表中进行前向和后向的遍历，这时候单链表就显得有些力不从心了。
+
+而双链表（Doubly Linked List）就是为了解决这个问题而诞生的。
+
+<Image
+  src="https://cdn.qladgk.com/images/20260207163232767.png"
+  alt="火车"
+  width={888}
+  height={527}
+  isArticleImage={true}
+/>
+
+同样可以把双链表想象成一列火车（list），每节车厢（node）装着货物（data）而且带着两个钩子（pointer），一个指向下一节车厢（next），另一个指向上一节车厢（prev）。这样我们就可以方便地在链表中进行前向和后向的遍历了。
+
+并且头结点的前一个钩子（prev）和尾结点的下一个钩子（next）都没有连接（nullptr），表示链表的开始和结束。
+
+一些名词解释：
+
+| **术语**                 | **解释**                                               |
+| ------------------------ | ------------------------------------------------------ |
+| 节点（Node）             | 链表中的基本单位，包含数据和指向其他节点的指针。       |
+| 指针（Pointer）          | 用于连接链表中节点的变量，指向下一个节点或前一个节点。 |
+| 头结点（Head）           | 链表的第一个节点，通常用来标识链表的开始。             |
+| 尾结点（Tail）           | 链表的最后一个节点，通常用来标识链表的结束。           |
+| 前驱指针（Prev Pointer） | 在双链表中，指向前一个节点的指针。                     |
+| 后继指针（Next Pointer） | 在单链表和双链表中，指向下一个节点的指针。             |
+| 前驱节点（Prev Node）    | 在双链表中，当前节点的前一个节点。                     |
+| 后继节点（Next Node）    | 在单链表和双链表中，当前节点的下一个节点。             |
+
+### 3、链表的优缺点
+
+相比于数组来说，数组是连续的内存空间，访问元素非常快（O(1)），但是在插入和删除元素时需要移动大量的元素，效率较低（O(n)）。
+
+而链表是非连续的内存空间，访问元素需要遍历链表（O(n)），但是在插入和删除元素时只需要修改指针，效率较高（O(1)）。
+
+## 二、单链表的增删改查
+
+### 1、单链表类
+
+使用类来定义一个单链表节点：
+
+```cpp
+template<typename T>
+class ListNode {
+public:
+    T data_;
+    ListNode *next_;
+
+    explicit ListNode(T x) : data_(x), next_(nullptr) {
+    }
+};
+```
+
+再使用工具函数来将一个数组转换成一个单链表：
+
+```cpp
+template<typename T>
+ListNode<T> *arrayToList(std::vector<T> arr) {
+    if (arr.empty()) {
+        return nullptr;
+    }
+
+    // 创建链表头结点
+    ListNode<T> *head = new ListNode<T>(arr[0]);
+
+    // 依次创建后续节点并连接
+    ListNode<T> *current = head;
+    for (int i = 1; i < arr.size(); i++) {
+        // 让当前节点的后继指针指向新创建的节点
+        current->next_ = new ListNode<T>(arr[i]);
+
+        // 将当前节点移动到新创建的节点
+        current = current->next_;
+    }
+
+    // 返回链表头结点
+    return head;
+}
+```
+
+### 2、查找和修改
+
+我要查找链表中的某个元素，首先需要从头结点开始，依次访问每个节点，直到找到目标元素或者遍历完整个链表。
+
+```cpp
+// 创建一个单链表
+std::vector<int> arr = {1, 2, 3, 4, 5};
+ListNode<int> *head = arrayToList(arr);
+
+// 定义目标元素和新值
+int target = 3;
+int newValue = 10;
+
+// 查找修改
+for (ListNode<int> *p = head; p != nullptr; p = p->next_) {
+    if (p->data_ == target) {
+        p->data_ = newValue;
+        break;
+    }
+}
+
+// 遍历打印
+for (ListNode<int> *p = head; p != nullptr; p = p->next_) {
+    std::cout << p->data_ << " ";   // 1 2 10 4 5
+}
+```
+
+> 可能由于网站样式的原因，你看不清代码中的 `->`（->），它表示访问指针所指向的对象的成员。`!=`（!=）不等于。
+
+> 单链表的查找和修改操作的时间复杂度是 O(n)，因为在最坏的情况下需要遍历整个链表。
+
+### 3、在链表的头部插入和删除
+
+**在链表的头部插入一个新节点：**
+
+```cpp
+// 创建一个单链表
+std::vector<int> arr = {1, 2, 3, 4, 5};
+ListNode<int> *head = arrayToList(arr);
+
+// 在链表头部插入一个新节点
+int newValue = 0;
+ListNode<int> *newNode = new ListNode<int>(newValue);
+newNode->next_ = head;  // 将新节点的后继指针指向当前的头结点
+head = newNode;         // 更新头结点为新节点
+
+// 遍历打印
+for (ListNode<int> *p = head; p != nullptr; p = p->next_) {
+    std::cout << p->data_ << " ";   // 0 1 2 3 4 5
+}
+```
+
+**在链表的头部删除一个节点：**
+
+```cpp
+// 创建一个单链表
+std::vector<int> arr = {1, 2, 3, 4, 5};
+ListNode<int> *head = arrayToList(arr);
+
+// 在链表头部删除一个节点
+ListNode<int> *temp = head;  // 暂存当前头结点
+head = head->next_;          // 更新头结点为下一个节点
+delete temp;                 // 释放原头结点的内存
+
+// 遍历打印
+for (ListNode<int> *p = head; p != nullptr; p = p->next_) {
+    std::cout << p->data_ << " ";   // 2 3 4 5
+}
+```
+
+> 在链表的头部插入和删除节点的时间复杂度是 O(1)，因为只需要修改几个指针即可完成操作。
+
+### 4、在链表的尾部插入和删除
+
+**在链表的尾部插入一个新节点：**
+
+```cpp
+// 创建一个单链表
+std::vector<int> arr = {1, 2, 3, 4, 5};
+ListNode<int> *head = arrayToList(arr);
+
+// 在链表尾部插入一个新节点
+int newValue = 6;
+ListNode<int> *newNode = new ListNode<int>(newValue);
+
+for (ListNode<int> *p = head; p != nullptr; p = p->next_) {
+    if (p->next_ == nullptr) {  // 找到尾结点
+        p->next_ = newNode;     // 将尾结点的后继指针指向新节点
+        break;
+    }
+}
+
+// 遍历打印
+for (ListNode<int> *p = head; p != nullptr; p = p->next_) {
+    std::cout << p->data_ << " ";   // 1 2 3 4 5 6
+}
+```
+
+**在链表的尾部删除一个节点：**
+
+```cpp
+// 创建一个单链表
+std::vector<int> arr = {1, 2, 3, 4, 5};
+ListNode<int> *head = arrayToList(arr);
+
+// 在链表尾部删除一个节点
+for (ListNode<int> *p = head; p != nullptr; p = p->next_) {
+    if (p->next_->next_ == nullptr) {  // 找到倒数第二个节点
+        p->next_ = nullptr;  // 将倒数第二个节点的后继指针置空
+        break;
+    }
+}
+
+// 遍历打印
+for (ListNode<int> *p = head; p != nullptr; p = p->next_) {
+    std::cout << p->data_ << " ";   // 1 2 3 4
+}
+```
+
+> 在链表的尾部插入和删除节点的时间复杂度是 O(n)，因为在最坏的情况下需要遍历整个链表找到尾结点。
+
+### 5、在链表的中间插入和删除
+
+在中间操作需要先找到目标位置的前一个节点，然后进行插入或删除操作。
+
+**在链表的中间插入一个新节点：**
+
+```cpp
+// 创建一个单链表
+std::vector<int> arr = {1, 2, 3, 4, 5};
+ListNode<int> *head = arrayToList(arr);
+
+int newValue = 10;
+ListNode<int> *newNode = new ListNode<int>(newValue);
+
+// 在第 2 个节点后面插入一个新节点
+// 那么目标位置是第 3 个节点，所以我们需要前驱节点（第 2 个节点）
+ListNode<int> *p = head;
+for (int i = 0; i < 1; i++) {
+    p = p->next_;   // 此时 p 指向第 2 个节点
+}
+
+newNode->next_ = p->next_;  // 将新节点的后继指针指向前驱节点的下一个节点
+p->next_ = newNode;         // 将前驱节点的后继指针指向新节点
+
+// 遍历打印
+for (ListNode<int> *p = head; p != nullptr; p = p->next_) {
+    std::cout << p->data_ << " ";   // 1 2 10 3 4 5
+}
+```
+
+**在链表的中间删除一个节点：**
+
+```cpp
+// 创建一个单链表
+std::vector<int> arr = {1, 2, 3, 4, 5};
+ListNode<int> *head = arrayToList(arr);
+
+// 删除第 3 个节点
+// 那么目标位置是第 3 个节点，所以我们需要前驱节点（第 2 个节点）
+ListNode<int> *p = head;
+for (int i = 0; i < 1; i++) {
+    p = p->next_;   // 此时 p 指向第 2 个节点
+}
+
+p->next_ = p->next_->next_;  // 将前驱节点的后继指针指向目标节点的下一个节点
+
+// 遍历打印
+for (ListNode<int> *p = head; p != nullptr; p = p->next_) {
+    std::cout << p->data_ << " ";   // 1 2 4 5
+}
+```
+
+> 在链表的中间插入和删除节点的时间复杂度是 O(n)，因为在最坏的情况下需要遍历链表找到目标位置。
+
+## 三、双链表的增删改查
+
+### 1、双链表类
+
+使用类来定义一个双链表节点：
+
+```cpp
+template<typename T>
+class DoublyListNode {
+public:
+    T data_;
+    DoublyListNode *prev_;
+    DoublyListNode *next_;
+
+    explicit DoublyListNode(T x) : data_(x), prev_(nullptr), next_(nullptr) {
+    }
+};
+```
+
+再使用工具函数来将一个数组转换成一个双链表：
+
+```cpp
+template<typename T>
+DoublyListNode<T> *arrayToDoublyList(std::vector<T> arr) {
+    if (arr.empty()) {
+        return nullptr;
+    }
+
+    // 创建链表头结点
+    DoublyListNode<T> *head = new DoublyListNode<T>(arr[0]);
+    DoublyListNode<T> *current = head;
+
+    // 依次建立链接
+    for (int i = 1; i < arr.size(); i++) {
+        // 将当前节点的后继指针指向新创建的节点
+        current->next_ = new DoublyListNode<T>(arr[i]);
+
+        // 将新节点的前驱指针指向当前节点
+        current->next_->prev_ = current;
+
+        // 将当前节点移动到新节点
+        current = current->next_;
+    }
+
+    // 返回链表头结点
+    return head;
+}
+```
+
+### 2、查找和修改
+
+双链表的查找和修改操作与单链表类似，只不过在双链表中我们可以方便地进行前向和后向的遍历。
+
+```cpp
+// 创建一个双链表
+std::vector<int> arr = {1, 2, 3, 4, 5};
+DoublyListNode<int> *head = arrayToDoublyList(arr);
+DoublyListNode<int> *tail = nullptr;
+
+// 先找到尾结点
+for (DoublyListNode<int> *p = head; p->next_ != nullptr; p = p->next_) {
+    tail = p->next_;
+}
+
+// 定义目标元素和新值
+int target = 3;
+int newValue = 10;
+
+// 从前向后查找修改
+for (DoublyListNode<int> *p = head; p != nullptr; p = p->next_) {
+    if (p->data_ == target) {
+        p->data_ = newValue;
+        break;
+    }
+}
+
+// 遍历打印
+for (DoublyListNode<int> *p = head; p != nullptr; p = p->next_) {
+    std::cout << p->data_ << " ";   // 1 2 10 4 5
+}
+
+std::cout << std::endl;
+
+// 从后向前查找修改
+for (DoublyListNode<int> *p = tail; p != nullptr; p = p->prev_) {
+    if (p->data_ == target) {
+        p->data_ = newValue;
+        break;
+    }
+}
+
+// 遍历打印
+for (DoublyListNode<int> *p = head; p != nullptr; p = p->next_) {
+    std::cout << p->data_ << " ";   // 1 2 10 4 5
+}
+```
+
+> 双链表的查找和修改操作的时间复杂度也是 O(n)，因为在最坏的情况下需要遍历整个链表。
+
+### 3、在双链表的头部插入和删除
+
+**在双链表的头部插入一个新节点：**
+
+```cpp
+// 创建一个双链表
+std::vector<int> arr = {1, 2, 3, 4, 5};
+DoublyListNode<int> *head = arrayToDoublyList(arr);
+
+// 在链表头部插入一个新节点
+int newValue = 0;
+DoublyListNode<int> *newNode = new DoublyListNode<int>(newValue);
+newNode->next_ = head;  // 将新节点的后继指针指向当前的头结点
+head->prev_ = newNode;  // 将当前头结点的前驱指针指向新节点
+head = newNode;         // 更新头结点为新节点
+
+// 0 1 2 3 4 5
+```
+
+**在双链表的头部删除一个节点：**
+
+```cpp
+// 创建一个双链表
+std::vector<int> arr = {1, 2, 3, 4, 5};
+DoublyListNode<int> *head = arrayToDoublyList(arr);
+
+// 在链表头部删除一个节点
+DoublyListNode<int> *temp = head;  // 暂存当前头结点
+head = head->next_;          // 更新头结点为下一个节点
+head->prev_ = nullptr;     // 将新的头结点的前驱指针置空
+temp->next_ = nullptr;   // 将原头结点的后继指针置空
+
+// 2 3 4 5
+```
+
+> 在双链表的头部插入和删除节点的时间复杂度是 O(1)，因为只需要修改几个指针即可完成操作。
+
+### 4、在双链表的尾部插入和删除
+
+**在双链表的尾部插入一个新节点：**
+
+```cpp
+// 创建一个双链表
+std::vector<int> arr = {1, 2, 3, 4, 5};
+DoublyListNode<int> *head = arrayToDoublyList(arr);
+DoublyListNode<int> *tail = nullptr;
+
+// 先找到尾结点
+for (DoublyListNode<int> *p = head; p->next_ != nullptr; p = p->next_) {
+    tail = p->next_;
+}
+
+int newValue = 6;
+DoublyListNode<int> *newNode = new DoublyListNode<int>(newValue);
+tail->next_ = newNode;  // 将当前尾结点的后继指针指向新节点
+newNode->prev_ = tail;  // 将新节点的前驱指针指向当前尾结点
+tail = newNode;         // 更新尾结点为新节点
+// 1 2 3 4 5 6
+```
+
+**在双链表的尾部删除一个节点：**
+
+```cpp
+// 创建一个双链表
+std::vector<int> arr = {1, 2, 3, 4, 5};
+DoublyListNode<int> *head = arrayToDoublyList(arr);
+DoublyListNode<int> *tail = nullptr;
+
+// 先找到尾结点
+for (DoublyListNode<int> *p = head; p->next_ != nullptr; p = p->next_) {
+    tail = p->next_;
+}
+
+// 在链表尾部删除一个节点
+tail->prev_->next_ = nullptr;  // 将倒数第二个节点的后继指针置空
+tail->prev_ = nullptr;         // 将尾结点的前驱指针置空
+// 1 2 3 4
+```
+
+> 如果我们已经在双链表中维护一个尾结点的指针，那么时间复杂度也是 O(1)。当前的实现中需要先找到尾结点，所以时间复杂度是 O(n)。
+
+### 5、在双链表的中间插入和删除
+
+在双链表的中间插入和删除节点的操作与单链表类似，只不过在双链表中我们需要同时修改前驱节点和后继节点的指针。
+
+**在双链表的中间插入一个新节点：**
+
+```cpp
+// 创建一个双链表
+std::vector<int> arr = {1, 2, 3, 4, 5};
+DoublyListNode<int> *head = arrayToDoublyList(arr);
+
+int newValue = 10;
+DoublyListNode<int> *newNode = new DoublyListNode<int>(newValue);
+
+// 在第 2 个节点后面插入一个新节点
+// 那么目标位置是第 3 个节点，所以我们需要前驱节点（第 2 个节点）
+DoublyListNode<int> *p = head;
+for (int i = 0; i < 1; i++) {
+    p = p->next_;   // 此时 p 指向第 2 个节点
+}
+
+newNode->next_ = p->next_;  // 将新节点的后继指针指向前驱节点的下一个节点
+newNode->prev_ = p;         // 将新节点的前驱指针指向前驱节点
+p->next_->prev_ = newNode;  // 将前驱节点的下一个节点的前驱指针指向新节点
+p->next_ = newNode;         // 将前驱节点的后继指针指向新节点
+// 1 2 10 3 4 5
+```
+
+**在双链表的中间删除一个节点：**
+
+```cpp
+// 创建一个双链表
+std::vector<int> arr = {1, 2, 3, 4, 5};
+DoublyListNode<int> *head = arrayToDoublyList(arr);
+
+// 删除第 3 个节点
+// 那么目标位置是第 3 个节点，所以我们需要前驱节点（第 2 个节点）
+DoublyListNode<int> *p = head;
+for (int i = 0; i < 1; i++) {
+    p = p->next_;   // 此时 p 指向第 2 个节点
+}
+
+DoublyListNode<int> *temp = p->next_;  // 暂存目标节点
+p->next_ = temp->next_;  // 将前驱节点的后继指针指向目标节点的下一个节点
+temp->next_->prev_ = p;  // 将目标节点的下一个节点的前驱指针指向前驱节点
+temp->prev_ = nullptr;   // 将目标节点的前驱指针置空
+temp->next_ = nullptr;   // 将目标节点的后继指针置空
+// 1 2 4 5
+```
+
+> 在双链表的中间插入和删除节点的时间复杂度也是 O(n)，因为在最坏的情况下需要遍历链表找到目标位置。
+
+是不是很好玩？是不是很有成就感？是不是很想自己动手实现一下？
+
+## 四、单/双链表的实现
+
+其实上面我们已经实现了单链表和双链表的基本操作了，不过我们还没有把它们封装成一个类来使用。
+
+接下来会使用类的封装并且使用虚拟头尾结点来实现一个更完整的单链表和双链表。
+
+### 1、什么是虚拟头尾结点？
+
+虚拟头尾结点（Dummy Head/Tail Node）是链表中的一个特殊节点，它不存储任何有效数据，只是为了简化链表的操作而存在。
+
+在上文中增删改查一共分成三类：
+
+- 在链表的头部操作
+- 在链表的尾部操作
+- 在链表的中间操作
+
+而如果使用虚拟节点，则只剩下了在链表的中间操作，因为头部和尾部的操作都可以看成虚拟节点的中间操作。
+
+### 2、双链表完整代码
+
+```cpp
+#include <iostream>
+#include <string>
+#include <stdexcept>
+
+template<typename T>
+class MyLinkedList {
+private:
+    struct ListNode {
+        T data_;
+        ListNode *prev_;
+        ListNode *next_;
+
+        explicit ListNode(T x) : data_(x), prev_(nullptr), next_(nullptr) {
+        }
+    };
+
+    ListNode *head_; // 虚拟头结点
+    ListNode *tail_; // 虚拟尾结点
+    int size_; // 链表的实际大小（不包括虚拟节点）
+
+public:
+    // 构造函数：初始化虚拟头尾节点
+    MyLinkedList() : size_(0) {
+        head_ = new ListNode(T()); // 创建虚拟头结点
+        tail_ = new ListNode(T()); // 创建虚拟尾结点
+        head_->next_ = tail_; // 虚拟头结点的后继指针指向虚拟尾结点
+        tail_->prev_ = head_; // 虚拟尾结点的前驱指针指向虚拟头结点
+    }
+
+    // 析构函数：释放所有节点
+    ~MyLinkedList() {
+        ListNode *current = head_;
+        while (current != nullptr) {
+            ListNode *next = current->next_;
+            delete current;
+            current = next;
+        }
+        head_ = nullptr;
+        tail_ = nullptr;
+        size_ = 0;
+    }
+
+    // 增加
+    void add(int index, T value) {
+        checkPositionIndex(index);
+        ListNode *prevNode = index == 0 ? head_ : getNode(index - 1); // 获取前驱节点
+        ListNode *nextNode = prevNode->next_; // 获取后继节点
+        ListNode *newNode = new ListNode(value); // 创建新节点
+
+        // 双向链接 prevNode <-> newNode <-> nextNode
+        prevNode->next_ = newNode; // 将前驱节点的后继指针指向新节点
+        newNode->prev_ = prevNode; // 将新节点的前驱指针指向前驱节点
+        newNode->next_ = nextNode; // 将新节点的后继指针指向后继节点
+        nextNode->prev_ = newNode; // 将后继节点的前驱指针指向新节点
+
+        size_++;
+    }
+
+    void addFirst(T value) {
+        add(0, value);
+    }
+
+    void addLast(T value) {
+        add(size_, value);
+    }
+
+    // 删除
+    T remove(int index) {
+        checkElementIndex(index);
+
+        // prevNode <-> targetNode <-> nextNode
+        ListNode *targetNode = getNode(index); // 直接获取目标节点
+        ListNode *prevNode = targetNode->prev_; // 直接从目标节点取前驱
+        ListNode *nextNode = targetNode->next_; // 直接从目标节点取后继
+
+        // 断开链接 prevNode <-> nextNode
+        prevNode->next_ = nextNode; // 将前驱节点的后继指针指向后继节点
+        nextNode->prev_ = prevNode; // 将后继节点的前驱指针指向前驱节点
+
+        T removedData = targetNode->data_;
+        delete targetNode;
+        size_--;
+
+        return removedData;
+    }
+
+    T removeFirst() {
+        return remove(0);
+    }
+
+    T removeLast() {
+        return remove(size_ - 1);
+    }
+
+    // 修改
+    T set(int index, T value) {
+        checkElementIndex(index);
+        ListNode *targetNode = getNode(index);
+        T oldValue = targetNode->data_;
+        targetNode->data_ = value;
+        return oldValue;
+    }
+
+    // 查找
+    T get(int index) const {
+        checkElementIndex(index);
+        ListNode *targetNode = getNode(index);
+        return targetNode->data_;
+    }
+
+    T getFirst() const {
+        return get(0);
+    }
+
+    T getLast() const {
+        return get(size_ - 1);
+    }
+
+    // 其他
+    int getSize() const {
+        return size_;
+    }
+
+    bool isEmpty() const {
+        return size_ == 0;
+    }
+
+    void printList() const {
+        if (isEmpty()) {
+            std::cout << "Empty list" << std::endl;
+            return;
+        }
+        ListNode *current = head_->next_;
+        while (current != tail_) {
+            std::cout << current->data_ << " ";
+            current = current->next_;
+        }
+        std::cout << std::endl;
+    }
+
+private:
+    // 获取指定索引的有效元素节点（0 ~ size_-1）
+    ListNode *getNode(int index) const {
+        checkElementIndex(index);
+
+        ListNode *current = nullptr;
+        if (index < size_ / 2) {
+            // 前半部分：从头遍历
+            current = head_->next_;
+            for (int i = 0; i < index; i++) {
+                current = current->next_;
+            }
+        } else {
+            // 后半部分：从尾遍历
+            current = tail_->prev_;
+            for (int i = size_ - 1; i > index; i--) {
+                current = current->prev_;
+            }
+        }
+        return current;
+    }
+
+    // 检查索引是否为有效元素索引（0 ~ size_-1）
+    bool isElementIndex(int index) const {
+        return index >= 0 && index < size_;
+    }
+
+    // 检查索引是否为有效插入位置（0 ~ size_）
+    bool isPositionIndex(int index) const {
+        return index >= 0 && index <= size_;
+    }
+
+    void checkElementIndex(int index) const {
+        if (!isElementIndex(index)) {
+            throw std::out_of_range(
+                "Invalid element index: " + std::to_string(index) + ", valid range: [0, " + std::to_string(size_ - 1) +
+                "]"
+            );
+        }
+    }
+
+    void checkPositionIndex(int index) const {
+        if (!isPositionIndex(index)) {
+            throw std::out_of_range(
+                "Invalid position index: " + std::to_string(index) + ", valid range: [0, " + std::to_string(size_) + "]"
+            );
+        }
+    }
+};
+
+// 使用示例
+int main() {
+    MyLinkedList<int> list;
+    list.addLast(1);
+    list.addLast(2);
+    list.addLast(3);
+    list.addFirst(0); // 0 1 2 3
+    std::cout << "Size: " << list.getSize() << std::endl; // 4
+    std::cout << "First element: " << list.getFirst() << std::endl; // 0
+    std::cout << "Last element: " << list.getLast() << std::endl; // 3
+    std::cout << "List content: ";
+    list.printList(); // 0 1 2 3
+
+    list.set(1, 10); // 修改索引 1 为 10 → 0 10 2 3
+    std::cout << "After set index 1 to 10: ";
+    list.printList(); // 0 10 2 3
+    std::cout << "Element at index 1: " << list.get(1) << std::endl; // 10
+
+    list.removeFirst(); // 删除第一个元素 → 10 2 3
+    std::cout << "After remove first: ";
+    list.printList(); // 10 2 3
+    std::cout << "First element: " << list.getFirst() << std::endl; // 10
+
+    list.removeLast(); // 删除最后一个元素 → 10 2
+    std::cout << "After remove last: ";
+    list.printList(); // 10 2
+    std::cout << "Last element: " << list.getLast() << std::endl; // 2
+
+    std::cout << "Final list: ";
+    for (int i = 0; i < list.getSize(); i++) {
+        std::cout << list.get(i) << " "; // 10 2
+    }
+    std::cout << std::endl;
+
+    // 测试边界：删除所有元素后再操作
+    list.removeFirst();
+    list.removeFirst();
+    std::cout << "After remove all elements, size: " << list.getSize() << std::endl; // 0
+    list.printList(); // Empty list
+    return 0;
+}
+```
+
+## 五、链表 List
+
+在 C++ 中，STL 提供了一个非常强大的链表容器——`std::list`，它是一个双向链表。
+
+### 1、简单实例
+
+创建和初始化 `std::list` 非常简单：
+
+```cpp
+#include <iostream>
+#include <list>
+
+int main() {
+    std::list<int> lst1;                  // 空的list
+    std::list<int> lst2(5);               // 包含5个默认初始化元素的list
+    std::list<int> lst3(5, 10);           // 包含5个元素，每个元素为10
+    std::list<int> lst4 = {1, 2, 3, 4};   // 使用初始化列表
+
+    return 0;
+}
+```
+
+简单示例：
+
+```cpp
+#include <iostream>
+#include <list>
+
+int main() {
+    // 创建一个整数类型的列表
+    std::list<int> numbers;
+
+    // 向列表中添加元素
+    numbers.push_back(10);
+    numbers.push_back(20);
+    numbers.push_back(30);
+
+    // 访问并打印列表的第一个元素
+    std::cout << "First element: " << numbers.front() << std::endl;
+
+    // 访问并打印列表的最后一个元素
+    std::cout << "Last element: " << numbers.back() << std::endl;
+
+    // 遍历列表并打印所有元素
+    std::cout << "List elements: ";
+    for (std::list<int>::iterator it = numbers.begin(); it != numbers.end(); ++it) {
+        std::cout << *it << " ";
+    }
+    std::cout << std::endl;
+
+    // 删除列表中的最后一个元素
+    numbers.pop_back();
+
+    // 再次遍历列表并打印所有元素
+    std::cout << "List elements after removing the last element: ";
+    for (std::list<int>::iterator it = numbers.begin(); it != numbers.end(); ++it) {
+        std::cout << *it << " ";
+    }
+    std::cout << std::endl;
+
+    return 0;
+}
+```
+
+### 2、常用成员函数
+
+```cpp
+list<int> lst1 = {1, 2, 3, 4, 5};
+list<int> lst2 = {6, 7, 8, 9, 10};
+```
+
+| **成员函数**                   | **说明**                                   | **效果**                                  |
+| ------------------------------ | ------------------------------------------ | ----------------------------------------- |
+| `lst1.push_back(6)`            | 在列表末尾添加一个元素。                   | lst1 变为 `{1, 2, 3, 4, 5, 6}`            |
+| `lst1.push_front(0)`           | 在列表开头添加一个元素。                   | lst1 变为 `{0, 1, 2, 3, 4, 5, 6}`         |
+| `lst1.pop_back()`              | 删除列表末尾的元素。                       | lst1 变为 `{0, 1, 2, 3, 4, 5}`            |
+| `lst1.pop_front()`             | 删除列表开头的元素。                       | lst1 变为 `{1, 2, 3, 4, 5}`               |
+| `lst1.front()`                 | 返回列表的第一个元素。                     | 返回 1                                    |
+| `lst1.back()`                  | 返回列表的最后一个元素。                   | 返回 5                                    |
+| `lst1.size()`                  | 返回列表中元素的数量。                     | 返回 5                                    |
+| `lst1.empty()`                 | 检查列表是否为空。                         | 返回 `false`                              |
+| `lst1.clear()`                 | 删除列表中的所有元素。                     | lst1 变为 `{}`                            |
+| `lst1.insert(lst1.begin(), 1)` | 在指定位置插入一个元素。                   | lst1 变为 `{1}`                           |
+| `lst2.erase(lst2.begin())`     | 删除指定位置的元素。                       | lst2 变为 `{7, 8, 9, 10}`                 |
+| `lst2.remove(7)`               | 删除列表中所有与指定值相等的元素。         | lst2 变为 `{8, 9, 10}`                    |
+| `lst2.begin()`                 | 返回指向列表第一个元素的迭代器。           | 返回指向 8 的迭代器                       |
+| `lst2.end()`                   | 返回指向列表末尾的迭代器。                 | 返回指向 10 的迭代器                      |
+| `lst2.sort()`                  | 对列表中的元素进行排序。                   | lst2 变为 `{8, 9, 10}`                    |
+| `lst2.reverse()`               | 反转列表中的元素顺序。                     | lst2 变为`{10, 9, 8}`                     |
+| `lst1.merge(lst2)`             | 将另一个列表合并到当前列表中，并保持排序。 | lst1 变为` {1, 8, 9, 10}`，lst2 变为 `{}` |
+
+完整代码：
+
+```cpp
+#include <iostream>
+#include <list>
+
+int main() {
+    std::list<int> lst1 = {1, 2, 3, 4, 5};
+    std::list<int> lst2 = {6, 7, 8, 9, 10};
+
+    lst1.push_back(6); // lst1 变为 `{1, 2, 3, 4, 5, 6}`
+    lst1.push_front(0); // lst1 变为 `{0, 1, 2, 3, 4, 5, 6}`
+    lst1.pop_back(); // lst1 变为 `{0, 1, 2, 3, 4, 5}`
+    lst1.pop_front(); // lst1 变为 `{1, 2, 3, 4, 5}`
+    std::cout << lst1.front() << std::endl; // 1
+    std::cout << lst1.back() << std::endl; // 5
+    std::cout << lst1.size() << std::endl; // 5
+    std::cout << lst1.empty() << std::endl; // 0（false）
+    lst1.clear(); // lst1 变为 `{}`
+    lst1.insert(lst1.begin(), 1); // lst1 变为 `{1}`
+    lst2.erase(lst2.begin()); // lst2 变为 `{7, 8, 9, 10}`
+    lst2.remove(7); // lst2 变为 `{8, 9, 10}`
+    lst2.sort(); // lst2 变为 `{8, 9, 10}`
+    lst2.reverse(); // lst2 变为 `{10, 9, 8}`
+    lst1.merge(lst2); // lst1 变为` {1, 10, 9, 8}`，lst2 变为 `{}`
+
+    for (int num: lst1) {
+        std::cout << num << " ";
+    }
+    std::cout << std::endl;
+    for (int num: lst2) {
+        std::cout << num << " ";
+    }
+
+    return 0;
+}
+
+```
