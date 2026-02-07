@@ -78,7 +78,7 @@ import Image from "@/components/mdx/Image";
 
 相比于数组来说，数组是连续的内存空间，访问元素非常快（O(1)），但是在插入和删除元素时需要移动大量的元素，效率较低（O(n)）。
 
-而链表是非连续的内存空间，访问元素需要遍历链表（O(n)），但是在插入和删除元素时只需要修改指针，效率较高（O(1)）。
+而链表是非连续的内存空间，访问元素需要遍历链表（O(n)）；插入/删除元素时，若已找到目标位置，仅需修改指针（O(1)），但找位置的过程仍需 O(n)，因此整体插入/删除复杂度为 O(n)。
 
 ## 二、单链表的增删改查
 
@@ -102,7 +102,7 @@ public:
 
 ```cpp
 template<typename T>
-ListNode<T> *arrayToList(std::vector<T> arr) {
+ListNode<T> *arrayToList(const std::vector<T> &arr) {
     if (arr.empty()) {
         return nullptr;
     }
@@ -323,7 +323,7 @@ public:
 
 ```cpp
 template<typename T>
-DoublyListNode<T> *arrayToDoublyList(std::vector<T> arr) {
+DoublyListNode<T> *arrayToDoublyList(const std::vector<T> &arr) {
     if (arr.empty()) {
         return nullptr;
     }
@@ -360,8 +360,14 @@ DoublyListNode<int> *head = arrayToDoublyList(arr);
 DoublyListNode<int> *tail = nullptr;
 
 // 先找到尾结点
-for (DoublyListNode<int> *p = head; p->next_ != nullptr; p = p->next_) {
-    tail = p->next_;
+if (head == nullptr) {
+    tail = nullptr;
+} else {
+    DoublyListNode<int> *p = head;
+    while (p->next_ != nullptr) {
+        p = p->next_;
+    }
+    tail = p;
 }
 
 // 定义目标元素和新值
@@ -447,8 +453,14 @@ DoublyListNode<int> *head = arrayToDoublyList(arr);
 DoublyListNode<int> *tail = nullptr;
 
 // 先找到尾结点
-for (DoublyListNode<int> *p = head; p->next_ != nullptr; p = p->next_) {
-    tail = p->next_;
+if (head == nullptr) {
+    tail = nullptr;
+} else {
+    DoublyListNode<int> *p = head;
+    while (p->next_ != nullptr) {
+        p = p->next_;
+    }
+    tail = p;
 }
 
 int newValue = 6;
@@ -468,8 +480,14 @@ DoublyListNode<int> *head = arrayToDoublyList(arr);
 DoublyListNode<int> *tail = nullptr;
 
 // 先找到尾结点
-for (DoublyListNode<int> *p = head; p->next_ != nullptr; p = p->next_) {
-    tail = p->next_;
+if (head == nullptr) {
+    tail = nullptr;
+} else {
+    DoublyListNode<int> *p = head;
+    while (p->next_ != nullptr) {
+        p = p->next_;
+    }
+    tail = p;
 }
 
 // 在链表尾部删除一个节点
@@ -567,8 +585,10 @@ private:
         ListNode *prev_;
         ListNode *next_;
 
-        explicit ListNode(T x) : data_(x), prev_(nullptr), next_(nullptr) {
-        }
+        // 无参构造（虚拟节点专用）
+        ListNode() : prev_(nullptr), next_(nullptr) {}
+        // 有参构造（有效节点专用）
+        explicit ListNode(T x) : data_(x), prev_(nullptr), next_(nullptr) {}
     };
 
     ListNode *head_; // 虚拟头结点
@@ -578,8 +598,8 @@ private:
 public:
     // 构造函数：初始化虚拟头尾节点
     MyLinkedList() : size_(0) {
-        head_ = new ListNode(T()); // 创建虚拟头结点
-        tail_ = new ListNode(T()); // 创建虚拟尾结点
+        head_ = new ListNode(); // 创建虚拟头结点
+        tail_ = new ListNode(); // 创建虚拟尾结点
         head_->next_ = tail_; // 虚拟头结点的后继指针指向虚拟尾结点
         tail_->prev_ = head_; // 虚拟尾结点的前驱指针指向虚拟头结点
     }
@@ -859,25 +879,25 @@ list<int> lst1 = {1, 2, 3, 4, 5};
 list<int> lst2 = {6, 7, 8, 9, 10};
 ```
 
-| **成员函数**                   | **说明**                                   | **效果**                                  |
-| ------------------------------ | ------------------------------------------ | ----------------------------------------- |
-| `lst1.push_back(6)`            | 在列表末尾添加一个元素。                   | lst1 变为 `{1, 2, 3, 4, 5, 6}`            |
-| `lst1.push_front(0)`           | 在列表开头添加一个元素。                   | lst1 变为 `{0, 1, 2, 3, 4, 5, 6}`         |
-| `lst1.pop_back()`              | 删除列表末尾的元素。                       | lst1 变为 `{0, 1, 2, 3, 4, 5}`            |
-| `lst1.pop_front()`             | 删除列表开头的元素。                       | lst1 变为 `{1, 2, 3, 4, 5}`               |
-| `lst1.front()`                 | 返回列表的第一个元素。                     | 返回 1                                    |
-| `lst1.back()`                  | 返回列表的最后一个元素。                   | 返回 5                                    |
-| `lst1.size()`                  | 返回列表中元素的数量。                     | 返回 5                                    |
-| `lst1.empty()`                 | 检查列表是否为空。                         | 返回 `false`                              |
-| `lst1.clear()`                 | 删除列表中的所有元素。                     | lst1 变为 `{}`                            |
-| `lst1.insert(lst1.begin(), 1)` | 在指定位置插入一个元素。                   | lst1 变为 `{1}`                           |
-| `lst2.erase(lst2.begin())`     | 删除指定位置的元素。                       | lst2 变为 `{7, 8, 9, 10}`                 |
-| `lst2.remove(7)`               | 删除列表中所有与指定值相等的元素。         | lst2 变为 `{8, 9, 10}`                    |
-| `lst2.begin()`                 | 返回指向列表第一个元素的迭代器。           | 返回指向 8 的迭代器                       |
-| `lst2.end()`                   | 返回指向列表末尾的迭代器。                 | 返回指向 10 的迭代器                      |
-| `lst2.sort()`                  | 对列表中的元素进行排序。                   | lst2 变为 `{8, 9, 10}`                    |
-| `lst2.reverse()`               | 反转列表中的元素顺序。                     | lst2 变为`{10, 9, 8}`                     |
-| `lst1.merge(lst2)`             | 将另一个列表合并到当前列表中，并保持排序。 | lst1 变为` {1, 8, 9, 10}`，lst2 变为 `{}` |
+| **成员函数**                   | **说明**                           | **效果**                                             |
+| ------------------------------ | ---------------------------------- | ---------------------------------------------------- |
+| `lst1.push_back(6)`            | 在列表末尾添加一个元素。           | lst1 变为 `{1, 2, 3, 4, 5, 6}`                       |
+| `lst1.push_front(0)`           | 在列表开头添加一个元素。           | lst1 变为 `{0, 1, 2, 3, 4, 5, 6}`                    |
+| `lst1.pop_back()`              | 删除列表末尾的元素。               | lst1 变为 `{0, 1, 2, 3, 4, 5}`                       |
+| `lst1.pop_front()`             | 删除列表开头的元素。               | lst1 变为 `{1, 2, 3, 4, 5}`                          |
+| `lst1.front()`                 | 返回列表的第一个元素。             | 返回 1                                               |
+| `lst1.back()`                  | 返回列表的最后一个元素。           | 返回 5                                               |
+| `lst1.size()`                  | 返回列表中元素的数量。             | 返回 5                                               |
+| `lst1.empty()`                 | 检查列表是否为空。                 | 返回 `false`                                         |
+| `lst1.clear()`                 | 删除列表中的所有元素。             | lst1 变为 `{}`                                       |
+| `lst1.insert(lst1.begin(), 1)` | 在指定位置插入一个元素。           | lst1（清空后）变为 `{1}`                             |
+| `lst2.erase(lst2.begin())`     | 删除指定位置的元素。               | lst2 变为 `{7, 8, 9, 10}`                            |
+| `lst2.remove(7)`               | 删除列表中所有与指定值相等的元素。 | lst2 变为 `{8, 9, 10}`                               |
+| `lst2.begin()`                 | 返回指向列表第一个元素的迭代器。   | 返回指向 8 的迭代器                                  |
+| `lst2.end()`                   | 返回指向列表末尾的迭代器。         | 返回指向列表末尾（最后一个元素的下一个位置）的迭代器 |
+| `lst2.sort()`                  | 对列表中的元素进行排序。           | lst2 变为 `{8, 9, 10}`                               |
+| `lst2.reverse()`               | 反转列表中的元素顺序。             | lst2 变为`{10, 9, 8}`                                |
+| `lst1.merge(lst2)`             | 将另一个列表合并到当前列表中       | lst1 变为` {1, 10, 9, 8}`，lst2 变为 `{}`            |
 
 完整代码：
 
@@ -915,5 +935,4 @@ int main() {
 
     return 0;
 }
-
 ```
