@@ -1,0 +1,515 @@
+---
+title: 手把手带你实现动态数组（C/C++ 数据结构）
+description: 数据结构的本质是数组和链表，数组分为静态数组和动态数组，本文将手把手带你理解动态数组的实现原理包括 STL 中 vector 的使用。
+date: "2026-02-07"
+lang: zh
+tags:
+  - 数据结构
+  - 数组
+  - C/C++
+category: 技术笔记
+cover: https://cdn.qladgk.com/images/20260207151422917.png
+series: 数据结构笔记
+seriesOrder: 1
+---
+
+import Image from "@/components/mdx/Image";
+
+<Image
+  src="https://cdn.qladgk.com/images/20260207151422917.png"
+  alt="cover"
+  width={999}
+  height={527}
+  isArticleImage={true}
+/>
+
+## 一、指针与数组
+
+### 1、指针
+
+在 C/C++ 中，指针是一个变量，它存储了另一个变量的**内存地址**。
+
+```cpp
+#include <iostream>
+using namespace std;
+
+int main() {
+    int a, b, c;
+    int *p1, *p2, *p3;
+
+    p1 = &a;
+    p2 = &b;
+    p3 = &c;
+
+    cout << (long long)&a << endl;  // 140733276388388
+    cout << (long long)&b << endl;  // 140733276388384
+    cout << (long long)&c << endl;  // 140733276388380
+
+    cout << (long long)p1 << endl;  // 140733276388388
+    cout << (long long)p2 << endl;  // 140733276388384
+    cout << (long long)p3 << endl;  // 140733276388380
+
+    return 0;
+}
+```
+
+为什么每个地址都相差 4？因为在 64 位系统中，int 类型占用 4 个字节，所以每个变量的地址相差 4 个字节。
+
+### 2、数组
+
+数组是在内存中**连续存储**的一组相同类型的数据。
+
+```cpp
+#include <iostream>
+using namespace std;
+
+int main() {
+    int arr[3] = {1, 2, 3};
+
+    cout << (long long)&arr[0] << endl; // 140722471371700
+    cout << (long long)&arr[1] << endl; // 140722471371704
+    cout << (long long)&arr[2] << endl; // 140722471371708
+
+    cout << (long long)arr << endl; // 140722471371700
+
+    return 0;
+}
+```
+
+由于是连续的，所以每个元素的地址相差 4 个字节，**并且数组名 `arr` 就是数组第一个元素的地址**。
+
+### 3、指针与数组的关系
+
+那既然这样，我们就可以通过指针来操作数组了。
+
+```cpp
+#include <iostream>
+using namespace std;
+
+int main() {
+    int arr[3] = {10, 20, 30};
+    int *p = arr;
+
+    // 写法1：指针偏移 + 解引用
+    cout << *(p + 0) << endl;   // 10
+    cout << *(p + 1) << endl;   // 20
+    cout << *(p + 2) << endl;   // 30
+
+    // 写法2：数组下标语法糖
+    cout << p[0] << endl;   // 10
+    cout << p[1] << endl;   // 20
+    cout << p[2] << endl;   // 30
+
+    return 0;
+}
+```
+
+**指针偏移的 “单位” 是元素类型大小，所以 `p + 1` 实际上是 `p` 的地址加上一个元素的大小（4 字节），也就是指向下一个元素的地址。**
+
+## 二、静态数组
+
+静态数组的大小在编译时就已经确定了，无法动态调整。
+
+数组的名字就是数组第一个元素的地址，其他元素之所以能用下标访问，是因为数组在内存中是连续存储的。
+
+比如，访问 `arr[1]` 就相当于访问 `*(arr + 1)`，也就是访问地址 `arr` 加上一个元素的大小（4 字节）的位置。
+
+```cpp
+#include <iostream>
+using namespace std;
+
+int main() {
+    int arr[3] = {1, 2, 3};
+    cout << arr[0] << endl;
+
+    cout << *(arr + 1) << endl;
+    cout << arr[1] << endl;
+
+    return 0;
+}
+```
+
+这样，静态数组的随机访问的时间复杂度是 O(1)，因为我们可以直接通过地址计算访问到任意元素。
+
+## 三、增删改查
+
+### 1、查找和修改
+
+很简单，直接通过下标访问即可：
+
+```cpp
+#include <iostream>
+using namespace std;
+
+int main() {
+    int arr[3] = {1, 2, 3};
+
+    // 查找
+    cout << arr[1] << endl; // 输出 2
+
+    // 修改
+    arr[1] = 20;
+    cout << arr[1] << endl; // 输出 20
+
+    // 输出整个数组
+    for (int i = 0; i < 3; i++) {
+        cout << arr[i] << " "; // 输出 1 20 3
+    }
+
+    return 0;
+}
+```
+
+> 查找和修改的时间复杂度都是 O(1)，因为我们可以直接通过下标访问到任意元素。
+
+### 2、删除
+
+删除末尾元素：
+
+```cpp
+#include <iostream>
+using namespace std;
+
+int main() {
+    int arr[3] = {1, 2, 3};
+    arr[2] = -1; // 设置为 -1 表示删除
+}
+```
+
+> 删除末尾元素的时间复杂度是 O(1)，因为我们只需要将最后一个元素设置为一个特殊值（如 -1）即可。
+
+删除非末尾元素，涉及到元素的移动：
+
+```cpp
+#include <iostream>
+using namespace std;
+
+int main() {
+    // 初始化一个长度为 5 的静态数组
+    int arr[5] = {1, 2, 3, 4, 5};
+
+    // 删除 arr[2]，即元素 3
+    int indexToDelete = 2;
+
+    // 移动元素
+    for (int i = indexToDelete; i < 4; i++) {
+        arr[i] = arr[i + 1]; // 将后面的元素向前移动
+    }
+
+    // 设置最后一个元素为 -1 表示删除
+    arr[4] = -1;
+}
+```
+
+> 删除非末尾元素的时间复杂度是 O(n)，因为我们需要移动后面的元素来填补被删除元素的位置。
+
+### 3、增加
+
+数组未满时，直接在末尾添加：
+
+```cpp
+#include <iostream>
+using namespace std;
+
+int main() {
+    int arr[5] = {1,2,3};
+
+    // 追加 4 到末尾
+    arr[3] = 4;
+
+    // 追加 5 到末尾
+    arr[4] = 5;
+
+    return 0;
+}
+```
+
+> 增加元素的时间复杂度是 O(1)，因为我们直接在末尾添加即可。
+
+数组未满时，在非末尾位置插入元素：
+
+```cpp
+#include <iostream>
+using namespace std;
+
+int main() {
+    int arr[5] = {1, 2, 4};
+
+    // 在索引 2 的位置插入 3
+    int indexToInsert = 2;
+
+    // 移动元素
+    for (int i = 3; i > indexToInsert; i--) {
+        arr[i] = arr[i - 1]; // 将后面的元素向后移动
+    }
+
+    // 插入元素
+    arr[indexToInsert] = 3;
+
+    return 0;
+}
+```
+
+> 在非末尾位置插入元素的时间复杂度是 O(n)，因为我们需要移动后面的元素来为新元素腾出位置。
+
+数组已满时，这时候无法直接添加元素了，需要创建一个更大的数组来存储更多的元素，这就是动态数组的核心思想。
+
+```cpp
+#include <iostream>
+using namespace std;
+
+int main() {
+    int arr[5] = {1, 2, 3, 4, 5};
+
+    // 需要创建一个更大的数组（扩容 2 倍）
+    int newArr[10];
+
+    // 将原数组的元素复制到新数组中
+    for (int i = 0; i < 5; i++) {
+        newArr[i] = arr[i];
+    }
+
+    // 现在我们可以在 newArr 中添加更多的元素了
+    newArr[5] = 6;
+    newArr[6] = 7;
+
+    return 0;
+}
+```
+
+> 当数组已满时，增加元素的时间复杂度是 O(n)，因为我们需要创建一个更大的数组并将原数组的元素复制到新数组中。
+
+## 四、动态数组 Vector
+
+C++ 标准库提供了一个动态数组的实现，叫做 `std::vector`，它封装了动态数组的功能，提供了方便的接口来进行增删改查操作。
+
+```cpp
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+int main() {
+    vector<int> vec;
+
+    // 末尾添加元素
+    vec.push_back(1);   // [1]
+    vec.push_back(4);   // [1, 4]
+
+    // 在指定位置插入元素
+    vec.insert(vec.begin() + 1, 2); // [1, 2, 4]
+    vec.insert(vec.begin() + 2, 3); // [1, 2, 3, 4]
+    vec.insert(vec.begin(), 0); // [0, 1, 2, 3, 4]
+
+    // 删除末尾元素
+    vec.pop_back(); // [0, 1, 2, 3]
+
+    // 删除指定位置的元素
+    vec.erase(vec.begin() + 1); // [0, 2, 3]
+
+    // 修改元素
+    vec[1] = 20; // [0, 20, 3]
+
+    // 输出整个 vector
+    for (int i = 0; i < vec.size(); i++) {
+        cout << vec[i] << " "; // 输出 0 20 3
+    }
+
+    // 其他工具函数 / 常见操作
+    cout << vec.size() << endl; // 输出 3
+    cout << vec.empty() << endl; // 输出 0（false）
+    cout << find(vec.begin(), vec.end(), 20) - vec.begin(); // 查找元素 20 的索引
+    clear(vec); // 清空 vector
+}
+```
+
+vector 的时间复杂度分析：
+
+- 末尾添加元素（`push_back`）的平均时间复杂度是 O(1)，因为当 vector 的容量不足时会进行扩容，扩容的时间复杂度是 O(n)，但这种情况发生的频率较低，所以平均下来是 O(1)。
+- 在指定位置插入元素（`insert`）的时间复杂度是 O(n)，因为需要移动后面的元素来为新元素腾出位置。
+- 删除末尾元素（`pop_back`）的时间复杂度是 O(1)，因为只需要将最后一个元素移除即可。
+- 删除指定位置的元素（`erase`）的时间复杂度是 O(n)，因为需要移动后面的元素来填补被删除元素的位置。
+- 修改和访问元素的时间复杂度是 O(1)，因为可以直接通过下标访问到任意元素进行修改。
+- 查找元素索引的时间复杂度是 O(n)，因为需要遍历整个 vector 来找到目标元素。
+- 清空 vector 的时间复杂度是 O(n)，因为需要将所有元素销毁。
+
+## 五、动态数组的实现
+
+### 1、注意事项
+
+就需要注意以下几点：
+
+- 当数组已满时，需要创建一个更大的数组来存储更多的元素
+- 扩容时，通常会将容量增加一倍，以减少频繁扩容
+- 删除元素时，如果当前元素个数过少（如容量的 1/4），可以考虑缩容来节省内存。
+- 需要实现增删改查等基本操作，并且要处理好边界情况（如索引越界等）。
+
+### 2、完整代码
+
+看懂以下代码需要对 C++ 的类、模板、异常处理等有一定的了解。
+
+```cpp
+#include <iostream>
+#include <stdexcept>
+#include <algorithm>
+
+template<typename T>
+class MyArrayList {
+private:
+    T *data_;
+    int size_;
+    int capacity_;
+
+    static constexpr int DEFAULT_CAPACITY = 1;
+
+    // 检查索引是否为有效元素索引（0 <= index < size_）
+    bool isElementIndex(int index) const noexcept {
+        return index >= 0 && index < size_;
+    }
+
+    // 检查索引是否为有效插入位置（0 <= index <= size_）
+    bool isPositionIndex(int index) const noexcept {
+        return index >= 0 && index <= size_;
+    }
+
+    // 校验元素索引，越界则抛异常
+    void checkElementIndex(int index) const {
+        if (!isElementIndex(index)) {
+            throw std::out_of_range(
+                "Index out of bounds: " + std::to_string(index) + ", size: " + std::to_string(size_));
+        }
+    }
+
+    // 校验插入位置索引，越界则抛异常
+    void checkPositionIndex(int index) const {
+        if (!isPositionIndex(index)) {
+            throw std::out_of_range(
+                "Position index out of bounds: " + std::to_string(index) + ", size: " + std::to_string(size_));
+        }
+    }
+
+    // 扩容/缩容
+    void resize(int newCapacity) {
+        // 确保新容量不小于默认容量，且不小于当前元素个数
+        newCapacity = std::max({newCapacity, size_, DEFAULT_CAPACITY});
+        if (newCapacity == capacity_) {
+            return;
+        }
+
+        // 创建新数组并复制元素
+        T *newData = new T[newCapacity];
+        for (int i = 0; i < size_; i++) {
+            newData[i] = data_[i];
+        }
+
+        // 释放旧数组内存并更新
+        delete[] data_;
+        data_ = newData;
+        capacity_ = newCapacity;
+    }
+
+public:
+    // 默认构造函数
+    MyArrayList() : data_(new T[DEFAULT_CAPACITY]), size_(0), capacity_(DEFAULT_CAPACITY) {
+    }
+
+    // 指定初始容量的构造函数
+    explicit MyArrayList(int initialCapacity)
+        : data_(new T[std::max(initialCapacity, DEFAULT_CAPACITY)]),
+          size_(0),
+          capacity_(std::max(initialCapacity, DEFAULT_CAPACITY)) {
+    }
+
+    // 插入元素到指定位置
+    void add(int index, T value) {
+        checkPositionIndex(index);
+        if (size_ == capacity_) {
+            resize(capacity_ * 2);
+        }
+        for (int i = size_ - 1; i >= index; i--) {
+            data_[i + 1] = data_[i];
+        }
+        data_[index] = value;
+        size_++;
+    }
+
+    void addFirst(T value) {
+        add(0, value);
+    }
+
+    void addLast(T value) {
+        add(size_, value);
+    }
+
+    // 删除指定位置元素
+    T remove(int index) {
+        checkElementIndex(index);
+        T deletedValue = data_[index];
+        for (int i = index + 1; i < size_; i++) {
+            data_[i - 1] = data_[i];
+        }
+        size_--;
+        if (0 < size_ && size_ == capacity_ / 4) {
+            resize(capacity_ / 2);
+        }
+        return deletedValue;
+    }
+
+    T removeFirst() {
+        return remove(0);
+    }
+
+    T removeLast() {
+        return remove(size_ - 1);
+    }
+
+    // 修改指定位置元素
+    T set(int index, T value) {
+        checkElementIndex(index);
+        T oldValue = data_[index];
+        data_[index] = value;
+        return oldValue;
+    }
+
+    // 获取指定位置元素
+    T get(int index) const {
+        checkElementIndex(index);
+        return data_[index];
+    }
+
+    // 获取当前元素个数
+    int getSize() const {
+        return size_;
+    }
+
+    // 判断是否为空
+    bool isEmpty() const {
+        return size_ == 0;
+    }
+
+    // 析构函数，释放内存
+    ~MyArrayList() {
+        delete[] data_;
+    }
+};
+
+int main() {
+    MyArrayList<int> arr(5);
+    for (int i = 0; i < 5; i++) {
+        arr.addLast(i + 1);     // [1, 2, 3, 4, 5]
+    }
+
+    arr.addFirst(0);            // [0, 1, 2, 3, 4, 5]
+    arr.addLast(6);             // [0, 1, 2, 3, 4, 5, 6]
+    arr.remove(3);              // [0, 1, 2, 4, 5, 6]
+    arr.set(3, 3);              // [0, 1, 2, 3, 5, 6]
+
+    std::cout << arr.getSize() << std::endl; // 6
+
+    for (int i = 0; i < arr.getSize(); i++) {
+        std::cout << arr.get(i) << " "; // 输出：0 1 2 3 5 6
+    }
+
+    return 0;
+}
+```
