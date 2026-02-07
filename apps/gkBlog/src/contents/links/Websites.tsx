@@ -201,6 +201,30 @@ const Websites = [
     description: "记录生活",
     category: "生活",
   },
+  {
+    name: "Prorise",
+    url: "https://prorise666.site/",
+    preview: "https://cdn.qladgk.com/images/20250620120209977.png",
+    avatar: "https://cdn.qladgk.com/images/20260207102305229.png",
+    description: "Prorise - 分享全栈技术与实战",
+    category: "技术",
+  },
+  {
+    name: "草东日记",
+    url: "https://www.gaicas.com",
+    preview: "https://cdn.qladgk.com/images/20260207102710764.png",
+    avatar: "https://cdn.qladgk.com/images/20260207102538927.png",
+    description: "独立思考，不困于众声扰",
+    category: "推荐",
+  },
+  {
+    name: "Ant",
+    url: "https://blog.wryhf.com/",
+    preview: "https://cdn.qladgk.com/images/20260207102710764.png",
+    avatar: "https://cdn.qladgk.com/images/20260207102850649.png",
+    description: "Just So So …",
+    category: "技术",
+  },
 ];
 
 export default Websites;
