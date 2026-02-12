@@ -10,7 +10,7 @@
     "start": "turbo run start"
   },
   "devDependencies": {
-    "eslint": "^8.0.0",
+    "eslint": "^10.0.0",
     "prettier": "^3.5.3",
     "prettier-plugin-tailwindcss": "^0.6.11",
     "turbo": "^2.5.2"
