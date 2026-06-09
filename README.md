@@ -1,9 +1,9 @@
 <h2 align="center">
-🚀 @qlAD 乔 &middot; gkBlog 现代化博客网站主题软件
+🚀 gkBlog &middot; A Modern Blog Starter
 </h2>
 
 <p align="center">
-🌐 使用 Turborepo 和 pnpm 构建的博客网站，基于 <a href="https://www.enji.dev/">enji.dev</a> 主题二次开发
+A performant, full-stack blog starter kit built with <b>Next.js 15</b>, <b>MDX</b>, and <b>Tailwind CSS</b> — forked from <a href="https://www.enji.dev/">enji.dev</a> and heavily customized.
 </p>
 
 <p align="center">
@@ -12,87 +12,85 @@
 
 <div align="center">
 
-✨在线预览：<https://www.qladgk.com> ✨
+✨ Live Demo: <a href="https://www.qladgk.com">www.qladgk.com</a> ✨
+
+[![Deploy with Vercel](https://vercel.com/button?utm_source=busiyi&utm_campaign=oss)](https://vercel.com/new/clone?utm_source=busiyi&utm_campaign=oss&repository-url=https%3A%2F%2Fgithub.com%2FqlAD%2FgkBlog&env=DATABASE_URL%2CSALT_IP_ADDRESS%2CNEXT_PUBLIC_BAIDU_TONGJI%2CNEXT_PUBLIC_GOOGLE_ID)
 
 </div>
 
 <div align="center">
-  <img
-    alt="GitHub License"
-    src="https://img.shields.io/github/license/qlAD/gkBlog?label=%F0%9F%93%9C%20License"
-  />
-  <img
-    alt="Website"
-    src="https://img.shields.io/website?url=https%3A%2F%2Fwww.qladgk.com%2F&up_message=%E8%BF%90%E8%A1%8C%E4%B8%AD&down_message=%E5%A4%B1%E8%B4%A5&label=%E2%9C%85%20%E7%BD%91%E7%AB%99%E6%83%85%E5%86%B5"
-  />
-  <img
-    alt="GitHub deployments"
-    src="https://img.shields.io/github/deployments/qlAD/gkBlog/Production?label=%F0%9F%9A%80%20Production"
-  />
-  <img
-    alt="GitHub commit activity"
-    src="https://img.shields.io/github/commit-activity/m/qlAD/gkBlog?label=%F0%9F%93%9D%20%E6%8F%90%E4%BA%A4%E9%A2%91%E7%8E%87"
-  />
-  <img
-    alt="GitHub last commit"
-    src="https://img.shields.io/github/last-commit/qlAD/gkBlog?label=%F0%9F%93%85%20%E6%9C%80%E8%BF%91%E6%8F%90%E4%BA%A4"
-  />
-  <img
-    alt="GitHub Tag"
-    src="https://img.shields.io/github/v/tag/qlAD/gkBlog?label=%F0%9F%94%96%20Tag"
-  />
-  <img
-    alt="GitHub repo size"
-    src="https://img.shields.io/github/repo-size/qlAD/gkBlog?label=%F0%9F%93%A6%20%E4%BB%93%E5%BA%93%E5%A4%A7%E5%B0%8F"
-  />
+  <img alt="GitHub License" src="https://img.shields.io/github/license/qlAD/gkBlog?label=%F0%9F%93%9C%20License" />
+  <img alt="Website" src="https://img.shields.io/website?url=https%3A%2F%2Fwww.qladgk.com%2F&up_message=online&down_message=offline&label=%E2%9C%85%20Demo" />
+  <img alt="GitHub deployments" src="https://img.shields.io/github/deployments/qlAD/gkBlog/Production?label=%F0%9F%9A%80%20Production" />
+  <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/qlAD/gkBlog?style=social" />
 </div>
 
 ---
 
-## 🛠️ 系统架构
+## ✨ Features
 
-gkBlog 系统采用现代化的全栈技术架构，具体如下：
+- ⚡ **Next.js 15 + React 19** — blazing fast performance with the latest React
+- 📝 **MDX-first** — write posts in Markdown, embed React components anywhere
+- 🎨 **Tailwind CSS** — fully responsive, class-based dark mode, accent color system
+- 📊 **Built-in analytics** — page views, shares, and emoji reactions (CLAP/THINK/AMAZED)
+- 🔍 **SEO optimized** — auto-generated sitemap, RSS feed, dynamic OG images via `@vercel/og`
+- 📖 **Series support** — group posts into series with navigation and custom metadata
+- 💬 **Comments** — Twikoo integration for privacy-friendly commenting
+- 🐳 **Docker ready** — one-command deploy with blue-green zero-downtime updates
+- 🌍 **i18n ready** — bilingual content support out of the box
+- 🎬 **Framer Motion** — smooth page transitions and animations
 
-- **前端**：使用 Next.js、React 和 TypeScript 构建用户界面，确保应用的高性能和开发效率。
-- **样式**：采用 Tailwind CSS 框架，实现灵活且响应式的样式管理。
-- **内容**：支持 MDX 格式，便于内容创作和富文本编辑。
-- **数据库**：使用在线版 MongoDB 存储文章元数据，而文章内容则存储在本地项目目录中。
-- **部署**：支持通过 Vercel 或 Node.js 环境进行部署，也可以生成 Docker 镜像。
+## 🆚 Why gkBlog?
 
-系统架构图如下所示：
+| | gkBlog | Hexo / Hugo | WordPress |
+|---|---|---|---|
+| **Framework** | Next.js 15 + React | Static generator | PHP |
+| **Content** | MDX (Markdown + React) | Markdown | WYSIWYG |
+| **Hosting** | Vercel (free) | GitHub Pages | VPS / managed |
+| **Customization** | Full React component system | Theme templating | Plugin ecosystem |
+| **Performance** | ⚡ SSG + ISR | ⚡ Static | 🐢 Server-rendered |
+| **DX** | TypeScript, hot reload | CLI, YAML config | Admin panel |
+| **Best for** | Devs who want full control | Simple blogs | Non-technical users |
+
+## 🛠️ Tech Stack
+
+- **Frontend**: Next.js 15, React 19, TypeScript
+- **Styling**: Tailwind CSS 3, `tailwindcss-accent`, Framer Motion
+- **Content**: MDX with custom remark/rehype plugins (KaTeX math, Prism syntax highlighting)
+- **Database**: MongoDB (free tier) via Prisma ORM — stores view/share/reaction metadata
+- **Deployment**: Vercel, Docker, or Node.js 22+
 
 ```mermaid
 flowchart TB
     classDef roundedCorners stroke-width:2px,rx:10,ry:10
 
-    subgraph "前端架构"
-        UI["用户界面 Tailwind CSS"]
-        Components["组件"]
-        Pages["页面"]
-        Hooks["自定义 Hooks"]
-        Providers["状态管理"]
+    subgraph "Frontend"
+        UI["Tailwind CSS UI"]
+        Components["React Components"]
+        Pages["Next.js Pages"]
+        Hooks["Custom Hooks"]
+        Providers["State Providers"]
     end
 
-    subgraph "内容管理"
-        MDX["MDX 文件"]
-        Assets["资源文件"]
+    subgraph "Content"
+        MDX["MDX Files"]
+        Assets["Static Assets"]
     end
 
-    subgraph "数据存储"
-        MongoDB["MongoDB 文章元数据"]
-        LocalFiles["本地文件 文章内容"]
+    subgraph "Data"
+        MongoDB["MongoDB — Content Metadata"]
+        LocalFiles["Local Files — Post Content"]
     end
 
-    subgraph "部署环境"
+    subgraph "Deploy"
         Vercel["Vercel"]
         Docker["Docker"]
-        Nodejs["Node.js 环境"]
+        Nodejs["Node.js"]
     end
 
     class UI,Components,Pages,Hooks,Providers,MDX,Assets,MongoDB,LocalFiles,Vercel,Docker,Nodejs roundedCorners;
 
-    UI --> Components
-    Components --> Pages
+    UI --> Components --> Pages
     Hooks --> Components
     Providers --> Components
     MDX --> Pages
@@ -106,6 +104,234 @@ flowchart TB
     MongoDB --> Nodejs
     LocalFiles --> Nodejs
 ```
+
+## 🚀 Quick Start
+
+> **Prerequisites**: [pnpm](https://pnpm.io/installation) (recommended), Node.js 22+
+
+### 1. Fork & Clone
+
+```bash
+git clone https://github.com/<your-username>/gkBlog.git
+cd gkBlog
+```
+
+### 2. Configure Environment
+
+```bash
+cp ./apps/gkBlog/.env.example ./apps/gkBlog/.env.local
+```
+
+Edit `.env.local`:
+
+```yaml
+# Required: MongoDB connection string (free tier works)
+DATABASE_URL = mongodb+srv://<user>:<password>@<cluster>/<db>?retryWrites=true&w=majority
+
+# Required: any random string for session hashing
+SALT_IP_ADDRESS = your-random-secret
+
+# Optional: analytics integrations
+NEXT_PUBLIC_BAIDU_TONGJI = xxxxxxxxxxxxxx    # Baidu Analytics
+NEXT_PUBLIC_GOOGLE_ID = xxxxxxxxxxxxxx        # Google Analytics
+NEXT_PUBLIC_CLARITY_TAG_ID = xxxxxxxxxxxxxx   # Microsoft Clarity
+NEXT_PUBLIC_TWIKOO_ENVID = xxxxxxxxxxxxxx     # Twikoo Comments
+```
+
+### 3. Install & Run
+
+```bash
+pnpm install
+pnpm dev
+```
+
+Your blog is running at `http://localhost:3000`! 🎉
+
+### 4. Create Your First Post
+
+```bash
+mkdir -p apps/gkBlog/src/pages/blog/my-first-post
+```
+
+Create `apps/gkBlog/src/pages/blog/my-first-post/index.mdx`:
+
+```mdx
+---
+title: Hello World
+description: "My first blog post with gkBlog"
+date: "2024-01-01"
+lang: en
+tags:
+  - nextjs
+  - blog
+category: Tech
+cover: https://your-cdn.com/cover-image.png
+---
+
+## Welcome to my blog!
+
+This is written in **Markdown** with full React component support.
+```
+
+### Post Frontmatter Reference
+
+| Field | Type | Required | Description |
+|---|---|---|---|
+| `title` | string | ✅ | Post title |
+| `description` | string | ✅ | SEO description & preview text |
+| `date` | string | ✅ | Publication date (`YYYY-MM-DD`) |
+| `lang` | `zh` \| `en` | ✅ | Language |
+| `tags` | string[] | — | Tag list |
+| `category` | string | — | Category name |
+| `cover` | string | — | Cover image URL (CDN recommended) |
+| `series` | string | — | Series name for grouping posts |
+| `seriesOrder` | number | — | Order within the series |
+
+## 🚢 Deployment
+
+### Vercel (Recommended — Free)
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FqlAD%2FgkBlog&env=DATABASE_URL,SALT_IP_ADDRESS)
+
+One click. Auto-deploys on every push to `main`.
+
+### Docker
+
+```bash
+docker compose build
+docker compose up -d
+```
+
+Blue-green deploy for zero downtime:
+
+```bash
+docker compose -f docker-compose-blue.yml pull
+docker compose -f docker-compose-blue.yml up -d
+# Verify blue is healthy, then switch traffic
+docker compose -f docker-compose-green.yml pause
+```
+
+### Node.js
+
+```bash
+pnpm install
+pnpm build
+pnpm start
+```
+
+---
+
+## 📝 Content Authoring
+
+### Post Frontmatter
+
+```yaml
+---
+title: Building a Static Blog with Next.js
+description: "A complete guide to building a static blog with Next.js, MDX, and Tailwind CSS."
+date: "2024-10-18"
+lang: zh
+tags:
+  - nextjs
+  - tutorial
+category: Tech Notes
+cover: images/20250422153424876.png
+---
+```
+
+### Image Hosting
+
+Use a CDN (e.g., Alibaba Cloud OSS) with PicGo for one-click uploads. All images in `cover` fields should point to CDN URLs.
+
+### Diagram & Design Tools
+
+- **Mermaid diagrams**: [mermaid.live](https://mermaid.live/edit)
+- **Cover generator**: [picprose.pixpark.net](https://picprose.pixpark.net/zh)
+- **Hand-drawn diagrams**: [excalidraw.com](https://excalidraw.com/)
+- **Image compression**: [picsmaller.com](https://picsmaller.com/)
+
+---
+
+## 📂 Repositories
+
+- **Primary**: [github.com/qlAD/gkBlog](https://github.com/qlAD/gkBlog)
+- **Mirror (CN)**: [git.qladgk.com/qlAD/gkBlog](https://git.qladgk.com/qlad/gkBlog)
+- **Mirror (Gitee)**: [gitee.com/qlAD/gkBlog](https://gitee.com/qlad/gkBlog)
+
+---
+
+## 🤝 Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for setup instructions and guidelines.
+
+**Contributors**
+
+<a href="https://github.com/qlAD/gkBlog/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=qlAD/gkBlog" />
+</a>
+
+---
+
+## 🌟 Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=qlAD/gkBlog&type=Date)](https://www.star-history.com/#qlAD/gkBlog&Date)
+
+**If you find this project useful, please consider giving it a ⭐ — it helps others discover it!**
+
+---
+
+## 📜 License
+
+[MIT License](LICENSE) — feel free to use, modify, and share.
+
+---
+
+## 🔑 Environment Variables Reference
+
+| Variable | Description | How to Get |
+|---|---|---|
+| `DATABASE_URL` | MongoDB connection string | [MongoDB Atlas](https://www.mongodb.com/) (free tier) |
+| `SALT_IP_ADDRESS` | Salt for session ID hashing | Any random string you choose |
+| `NEXT_PUBLIC_BAIDU_TONGJI` | Baidu Analytics ID | [tongji.baidu.com](https://tongji.baidu.com/) |
+| `NEXT_PUBLIC_GOOGLE_ID` | Google Analytics ID | [analytics.google.com](https://analytics.google.com/) |
+| `NEXT_PUBLIC_CLARITY_TAG_ID` | Microsoft Clarity ID | [clarity.microsoft.com](https://clarity.microsoft.com/) |
+| `NEXT_PUBLIC_TWIKOO_ENVID` | Twikoo Comment System Env ID | [twikoo.js.org](https://twikoo.js.org/) |
+| `BAIDU_API_URL` | Baidu Search API URL | [ziyuan.baidu.com](https://ziyuan.baidu.com/) |
+| `BING_API_KEY` | Bing IndexNow API Key | [bing.com/indexnow](https://www.bing.com/indexnow/getstarted/) |
+| `ALIYUN_REGISTRY` | Alibaba Cloud Container Registry | [cr.console.aliyun.com](https://cr.console.aliyun.com/) |
+| `DOCKER_USERNAME` | Docker registry username | Alibaba Cloud CR credentials |
+| `DOCKER_PASSWORD` | Docker registry password | Alibaba Cloud CR credentials |
+| `NEODB_ACCESS_TOKEN` | NeoDB Access Token | [neodb.social/developer](https://neodb.social/developer/) |
+
+---
+
+---
+
+<h2 align="center">
+🚀 @qlAD 乔 &middot; gkBlog 现代化博客网站主题
+</h2>
+
+<p align="center">
+🌐 使用 Turborepo 和 pnpm 构建的博客网站，基于 <a href="https://www.enji.dev/">enji.dev</a> 主题二次开发
+</p>
+
+<div align="center">
+
+✨在线预览：<https://www.qladgk.com> ✨
+
+</div>
+
+---
+
+## 🛠️ 系统架构
+
+gkBlog 系统采用现代化的全栈技术架构，具体如下：
+
+- **前端**：使用 Next.js、React 和 TypeScript 构建用户界面，确保应用的高性能和开发效率。
+- **样式**：采用 Tailwind CSS 框架，实现灵活且响应式的样式管理。
+- **内容**：支持 MDX 格式，便于内容创作和富文本编辑。
+- **数据库**：使用在线版 MongoDB 存储文章元数据，而文章内容则存储在本地项目目录中。
+- **部署**：支持通过 Vercel 或 Node.js 环境进行部署，也可以生成 Docker 镜像。
 
 > 📝 有关更多流程图见： [项目流程图](FlowChart.md)
 
@@ -218,23 +444,6 @@ flowchart TB
 
 - **国内**：阿里云 Docker 容器、ESA [https://www.qladgk.com](https://www.qladgk.com)
 - **国外**：Vercel [https://gkblog.vercel.app](https://gkblog.vercel.app)
-
----
-
-## 🔑 密钥和变量
-
-| 变量名称                 | 描述                     | 获取地址                                                                                                                   |
-| ------------------------ | ------------------------ | -------------------------------------------------------------------------------------------------------------------------- |
-| BAIDU_API_URL            | 百度资源搜索 API 链接    | [https://ziyuan.baidu.com/](https://ziyuan.baidu.com/)                                                                     |
-| BING_API_KEY             | 必应 IndexNow 密钥       | [https://www.bing.com/indexnow/getstarted/](https://www.bing.com/indexnow/getstarted/)                                     |
-| NEXT_PUBLIC_BAIDU_TONGJI | 百度统计代码             | [https://tongji.baidu.com/](https://tongji.baidu.com/)                                                                     |
-| NEXT_PUBLIC_GOOGLE_ID    | 谷歌分析代码             | [https://analytics.google.com/analytics/web/](https://analytics.google.com/analytics/web/)                                 |
-| ALIYUN_REGISTRY          | 阿里云容器镜像仓库地址   | [https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors](https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors) |
-| DOCKER_USERNAME          | 阿里云容器镜像仓库用户名 | [https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors](https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors) |
-| DOCKER_PASSWORD          | 阿里云容器镜像仓库密码   | [https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors](https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors) |
-| NEODB_ACCESS_TOKEN       | NeoDB 访问令牌           | [https://neodb.social/developer/](https://neodb.social/developer/)                                                         |
-| SALT_IP_ADDRESS          | 数据库盐值               | 随意填写一些你的密码                                                                                                       |
-| NEXT_PUBLIC_TWIKOO_ENVID | Twikoo 评论系统环境 ID   | [https://twikoo.js.org/](https://twikoo.js.org/)                                                                           |
 
 ### ✏️ 内容创作
 
