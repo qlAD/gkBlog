@@ -50,7 +50,7 @@
     "three": "^0.176.0",
     "use-local-storage-state": "^19.5.0",
     "use-sound": "^5.0.0",
-    "zod": "^3.24.4"
+    "zod": "^4.0.0"
   },
   "devDependencies": {
     "@types/lodash": "^4.17.16",
